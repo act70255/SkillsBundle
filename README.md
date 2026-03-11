@@ -23,8 +23,8 @@
 
 | Workflow | 主要調用 Skills | 說明 |
 |---|---|---|
-| `/workflow-spec-create` | `concise-planning` + `brainstorming`, `architecture`, `architecture-decision-records`, `writing-plans`, `ask-questions-if-underspecified` | 新建規格、驗收與任務拆解 |
-| `/workflow-spec-update` | `planning-with-files` + `architecture`, `architecture-decision-records`, `product-manager-toolkit`, `api-design-principles`, `writing-plans` | 依變更或阻塞更新規格與任務 |
+| `/workflow-spec-create` | `concise-planning` + `planning-with-files`, `architecture`, `architecture-decision-records`, `product-manager-toolkit`, `api-design-principles` | 新建規格、驗收與任務拆解 |
+| `/workflow-spec-update` | `planning-with-files` + `concise-planning`, `writing-plans`, `architecture`, `architecture-decision-records`, `ask-questions-if-underspecified` | 依變更或阻塞更新規格與任務 |
 
 ### Skills 依賴關係（Skill -> Skill）
 
@@ -49,8 +49,8 @@
 
 | Workflow | 主要調用 Skills | 說明 |
 |---|---|---|
-| `/workflow-dotnet-validation` | `development` + `concise-planning`, `api-design-principles`, `database-design` | 驗證規格可實作性與缺漏 |
-| `/workflow-dotnet-implement` | `development` + `dotnet-architect`, `dotnet-backend`, `dotnet-backend-patterns`, `csharp-pro`, `sql-pro`, `clean-code` | 依規格進行 .NET 實作 |
+| `/workflow-dotnet-validation` | `development` + `dotnet-architect`, `api-design-principles`, `database-design`, `dotnet-backend-patterns` | 驗證規格可實作性與缺漏 |
+| `/workflow-dotnet-implement` | `development` + `dotnet-backend`, `dotnet-backend-patterns`, `clean-code`, `lint-and-validate` | 依規格進行 .NET 實作 |
 
 ### Skills 依賴關係（Skill -> Skill）
 
