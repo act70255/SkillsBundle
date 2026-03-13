@@ -7,12 +7,17 @@ description: 驗證規格並輸出 Python 交接請求
 
 目標：
 - 以既有規格文件為唯一依據，驗證 Python/FastAPI 可實作性，僅產出單一交接文件給 planning 更新規格。
+- 本指令需遵循 `workflow-dev-general-loop.md` 的跨 bundle 閉環流程：
+  `validation -> [SPEC]CHANGE-REQUEST.md -> /workflow-spec-update -> re-validation -> PASS`。
 
 執行規則：
 1) 先檢查並對齊以下文件：`SPEC.md`、`ACCEPTANCE-CRITERIA.md`、`ARCHITECTURE.md`、`TASKS.md`。
 2) 僅處理可追溯項目（需可對應 FR/NFR/CR 與 TASK 編號）。
 3) 發現缺漏或衝突時，不進入實作，改輸出交接修訂需求。
 4) 不修改任何 planning 文件；規格變更只能透過 `/workflow-spec-update`。
+5) 若結論為 `NEEDS_UPDATE`，必須明確輸出下一步為：
+   先交由 `planning` 執行 `/workflow-spec-update`，完成後回到本指令做 re-validation。
+6) 反覆執行上述流程，直到結論為 `PASS` 才可進入 `/workflow-python-implement`。
 
 Workflow Gate：
 1) 任一必要文件不存在：停止並輸出缺少文件清單。
@@ -23,6 +28,8 @@ Workflow Gate：
 - 目前你位於 `dev-python` bundle，可能無法直接使用 planning 指令。
 - 若需更新規格，先輸出 `[SPEC]CHANGE-REQUEST.md`（含衝突點、建議修正、影響範圍）。
 - 再切換到 `planning` bundle 後執行：`/workflow-spec-update <[SPEC]CHANGE-REQUEST.md 重點>`。
+- `planning` 更新完成後，必須回到 `dev-python` 重新執行 `/workflow-python-validation`；
+  未重新驗證前，不得視為可實作。
 
 請輸出：
 1) `[SPEC]CHANGE-REQUEST.md`（唯一輸出）
@@ -31,4 +38,8 @@ Workflow Gate：
    - 建議修正內容（供 `/workflow-spec-update` 直接使用）
    - 影響範圍（模組/API/資料/測試）
    - 阻塞項與單一最關鍵問題（若有）
+   - `Next Action`：
+     - `PASS` -> `可進入 /workflow-python-implement`
+     - `NEEDS_UPDATE` -> `切換 planning 執行 /workflow-spec-update，完成後回到 /workflow-python-validation`
+   - `Re-Validation Scope`：下輪需重驗的 FR/NFR/CR、TASK、AC 範圍
    - 若為 `PASS`，明確標示「無需更新 planning 文件，可進入 `/workflow-python-implement`」

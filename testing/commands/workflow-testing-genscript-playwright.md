@@ -11,20 +11,24 @@ description: 依測試文件與程式碼產出 Playwright E2E 測試腳本
 
 參數規範：
 
-- 建議格式：`<變更範圍> --src-path <path> --test-path <path>`
-- 無參數模式：可直接執行 `/workflow-testing-script-generate-playwright`；未提供 `<變更範圍>`、`--src-path`、`--test-path` 時，使用預設值
-- 預設值：`--src-path src（若不存在則使用工作區根目錄） --test-path testscripts/playwright`
+- 建議格式：`<變更範圍> --site-url <url> --test-path <path>`
+- 無參數模式：可直接執行 `/workflow-testing-genscript-playwright`；未提供 `<變更範圍>`、`--site-url`、`--test-path` 時，需先向使用者確認可測試站台 URL
+- 預設值：`--test-path testscripts/playwright`
 - 文件檔目錄：`--artifact-dir <path>`（預設 `testing-artifacts/playwright`）
+- 可選輸入模板：`--input-file <path>`（建議使用 `../templates/PLAYWRIGHT-INPUT.template.md`）
+- `--src-path <path>` 為可選補強參數（僅用於疑難案例定位），非必要
 - 路徑優先序：明確傳入參數 > 專案慣例路徑 > 預設值
-- 若推導後掃描範圍過廣（例如跨多模組或大量檔案），需先向使用者確認是否縮小範圍再執行
+- 若站台探索範圍過廣（例如跨多模組或大量頁面），需先向使用者確認是否縮小範圍再執行
 
 輸入來源（強制讀取）：
 
-1. `--src-path` 指定路徑（預設 `src/`，產品程式碼）
+1. `--site-url` 指定站台（或等效 `--base-url`），作為黑箱腳本的目標網址
 2. `--test-path` 指定路徑（預設 `testscripts/playwright/`，測試腳本）
 3. `testing-artifacts/playwright/TEST-PLAN.md`（或 `--artifact-dir/TEST-PLAN.md`）
 4. `testing-artifacts/playwright/TEST-CASES.md`（或 `--artifact-dir/TEST-CASES.md`）
 5. `testing-artifacts/playwright/ACCEPTANCE-CRITERIA.md`（或 `--artifact-dir/ACCEPTANCE-CRITERIA.md`）
+6. `--src-path`（可選）：僅在黑箱定位不足時補強分析，不可作為流程前置必要條件
+7. `--input-file`（可選）：若提供，需讀取 `route_scope`、`p0_flows`、`assertion_targets`，用於補強腳本案例對應與斷言設計
 
 執行規範：
 
@@ -38,6 +42,10 @@ description: 依測試文件與程式碼產出 Playwright E2E 測試腳本
 8. 輸出路徑為 `testscripts/playwright/`（或 `--test-path`）
 9. 產生完成後，需在 `testing-artifacts/playwright/TEST-SCRIPT-REPORT.md`（或 `--artifact-dir/TEST-SCRIPT-REPORT.md`）列出「已對應 CaseID」與「未對應 CaseID（含原因）」
 10. 產生失敗時需保留可重跑資訊（命令、前置條件、測試資料）
+11. Locator 策略：優先使用 `getByRole`、`getByLabel`、`getByTestId`，必要時使用 `getByText`（regex/partial match）
+12. 禁止使用 `getByPlaceholder`（不可作為主要或備援定位），因 i18n 容易造成定位不穩定；若無可行替代方案，需標記為「可測試性缺口」並回報需補語意標記（例如可存取名稱或 test id），且不得使用脆弱 selector（如 `nth-child`）
+13. 若案例含 `NavigationType = route | hyperlink | redirect`，腳本必須同時驗證 URL 變化與目標頁關鍵元素可見
+14. 本流程以黑箱測試為主，不得依賴產品內部實作細節（state、私有函式、內部變數）作為斷言基準
 
 請輸出（強制）：
 
@@ -49,7 +57,8 @@ description: 依測試文件與程式碼產出 Playwright E2E 測試腳本
 
 模板參考：
 
-- `.opencode/templates/TEST-PLAN.template.md`
-- `.opencode/templates/TEST-CASES.template.md`
-- `.opencode/templates/ACCEPTANCE-CRITERIA.template.md`
-- `.opencode/templates/TEST-SCRIPT-REPORT.template.md`
+- `../templates/TEST-PLAN.template.md`
+- `../templates/TEST-CASES.template.md`
+- `../templates/ACCEPTANCE-CRITERIA.template.md`
+- `../templates/TEST-SCRIPT-REPORT.template.md`
+- `../templates/PLAYWRIGHT-INPUT.template.md`

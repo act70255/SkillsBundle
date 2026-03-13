@@ -9,11 +9,14 @@
 
 ## 建議執行流程（Workflow）
 
+參考共用規範：`workflow-dev-general-loop.md`
+
 ```text
 1) /workflow-dotnet-validation <範圍或功能描述>
-2) 若結果為 PASS -> /workflow-dotnet-implement <TASK 範圍>
-3) 若結果為 NEEDS_UPDATE -> 先送出 [SPEC]CHANGE-REQUEST.md，改走 planning 的 /workflow-spec-update
-4) 規格更新後，再回到 /workflow-dotnet-validation 或直接 /workflow-dotnet-implement
+2) 若結果為 NEEDS_UPDATE -> 先送出 [SPEC]CHANGE-REQUEST.md，改走 planning 的 /workflow-spec-update
+3) planning 更新完成後 -> 回到 /workflow-dotnet-validation 進行 re-validation
+4) 重複 2)~3) 直到 PASS
+5) PASS 後才進入 /workflow-dotnet-implement <TASK 範圍>
 ```
 
 ## 1) `workflow-dotnet-validation`
@@ -27,6 +30,7 @@
 - 以規格文件為唯一依據，檢查可追溯性（FR/NFR/CR -> TASK -> AC）。
 - 遇到缺漏或衝突時，停止實作並輸出交接文件。
 - 不直接修改 planning 文件，所有規格變更都需透過 planning bundle 的 `/workflow-spec-update`。
+- 每輪輸出需包含 `Next Action` 與 `Re-Validation Scope`，確保可直接進入下一輪。
 
 ### 主要輸出
 - `[SPEC]CHANGE-REQUEST.md`（唯一輸出）
@@ -82,3 +86,4 @@
 - 若 `TASKS.md` 無可執行項或缺 Trace，先補規格，不要硬做。
 - 需要改 `SPEC.md`、`ACCEPTANCE-CRITERIA.md`、`ARCHITECTURE.md`、`TASKS.md` 任務定義時，一律走 `/workflow-spec-update`。
 - 在命令參數中明確給「模組、API、TASK 範圍、驗收重點」，可減少阻塞與往返溝通。
+- 收斂完成判定：必要文件齊全、Trace 完整、AC 可測、跨文件無衝突。

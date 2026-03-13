@@ -30,7 +30,7 @@ description: 建立 Chrome DevTools 測試策略、測試案例與品質閘
 1. 僅做測試規劃，不可修改產品程式碼
 2. 測試案例需標註 `AutomationTarget = chromedevtools | manual`
 3. 測試案例需可追溯到 AC 與 TASK 編號；若文件缺失，允許使用 `INFERRED-*` 編號
-4. 不在本流程產出測試腳本；若需產碼，改用 `/workflow-testing-script-generate-chromedevtools`
+4. 不在本流程產出測試腳本；若需產碼，改用 `/workflow-testing-genscript-chromedevtools`
 
 請輸出（強制）：
 
@@ -54,7 +54,7 @@ description: 建立 Chrome DevTools 測試策略、測試案例與品質閘
 
 模板參考：
 
-- `.opencode/templates/TEST-PLAN.template.md`
-- `.opencode/templates/TEST-CASES.template.md`
-- `.opencode/templates/ACCEPTANCE-CRITERIA.template.md`
-- `.opencode/templates/INPUT-GAP.template.md`
+- `../templates/TEST-PLAN.template.md`
+- `../templates/TEST-CASES.template.md`
+- `../templates/ACCEPTANCE-CRITERIA.template.md`
+- `../templates/INPUT-GAP.template.md`

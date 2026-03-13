@@ -9,11 +9,14 @@
 
 ## 建議執行流程（Workflow）
 
+參考共用規範：`workflow-dev-general-loop.md`
+
 ```text
 1) /workflow-python-validation <範圍或功能描述>
-2) 若結果為 PASS -> /workflow-python-implement <TASK 範圍>
-3) 若結果為 NEEDS_UPDATE -> 先輸出 [SPEC]CHANGE-REQUEST.md，改走 planning 的 /workflow-spec-update
-4) 規格更新後，再回到 /workflow-python-validation 或直接 /workflow-python-implement
+2) 若結果為 NEEDS_UPDATE -> 先輸出 [SPEC]CHANGE-REQUEST.md，改走 planning 的 /workflow-spec-update
+3) planning 更新完成後 -> 回到 /workflow-python-validation 進行 re-validation
+4) 重複 2)~3) 直到 PASS
+5) PASS 後才進入 /workflow-python-implement <TASK 範圍>
 ```
 
 ## 1) `workflow-python-validation`
@@ -32,6 +35,7 @@
 - 僅處理可追溯項目（FR/NFR/CR -> TASK -> AC）。
 - 發現缺漏或衝突時，停止實作並產出交接修訂需求。
 - 不直接修改 planning 文件；規格更新統一改走 `/workflow-spec-update`。
+- 每輪輸出需包含 `Next Action` 與 `Re-Validation Scope`，確保可直接進入下一輪。
 
 ### 主要輸出
 - `[SPEC]CHANGE-REQUEST.md`（唯一輸出）
@@ -91,3 +95,4 @@
 - 若 `TASKS.md` 沒有可執行項或無 Trace，先補規格再進入實作。
 - 需要調整 `SPEC.md`、`ACCEPTANCE-CRITERIA.md`、`ARCHITECTURE.md`、`TASKS.md` 任務定義時，一律走 `/workflow-spec-update`。
 - 命令參數盡量寫清楚「模組、API、TASK 範圍、驗收重點」，可顯著減少阻塞與往返溝通。
+- 收斂完成判定：必要文件齊全、Trace 完整、AC 可測、跨文件無衝突。

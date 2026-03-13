@@ -14,6 +14,8 @@ subtask: true
 
 目標：
 - 依既有規劃推進任務，與使用者確認新需求後更新 SPEC、驗收標準與架構規劃。
+- 本指令需遵循 `workflow-dev-general-loop.md` 的跨 bundle 閉環流程：
+  `validation -> [SPEC]CHANGE-REQUEST.md -> /workflow-spec-update -> re-validation -> PASS`。
 
 執行規則：
 1) 先確認本次需求變更與影響範圍，不直接進入實作。
@@ -21,6 +23,8 @@ subtask: true
 3) 若關鍵資訊缺漏，使用「一問一答」逐項確認（一次只問一個最關鍵問題）。
 4) 資訊補齊後才更新 SPEC、驗收標準與架構影響分析。
 5) 僅輸出規劃文件，不進入開發與程式實作。
+6) 若本次輸入來源為 `[SPEC]CHANGE-REQUEST.md`，需逐項對應其缺漏/衝突點並完成修訂。
+7) 文件更新完成後，明確要求切回來源開發 bundle 執行 re-validation（例如 `/workflow-python-validation` 或 `/workflow-dotnet-validation`）。
 
 格式要求（Checklist）：
 - `ACCEPTANCE-CRITERIA.md` 必須使用 checklist 格式（`- [ ]`）。
@@ -52,6 +56,11 @@ subtask: true
 
 輸入：
 - 任務：$ARGUMENTS
+- 若來源為 validation 交接，輸入應包含 `[SPEC]CHANGE-REQUEST.md` 重點：
+  - 缺漏/衝突清單（FR/NFR/CR、TASK、AC 對應）
+  - 建議修正內容
+  - 影響範圍（模組/API/資料/測試）
+  - 阻塞項與最關鍵問題
 
 請輸出：
 1) `CHANGE-REQUEST-SUMMARY.md`
@@ -83,3 +92,9 @@ subtask: true
 8) `CHANGELOG-SPEC.md`（更新版）
    - 格式：本次文件變更差異摘要
    - 要求：可追溯到 `SPEC/ACCEPTANCE-CRITERIA/ARCHITECTURE/TASKS` 對應章節。
+9) `NEXT-ACTION.md`
+   - 格式：單一步驟指令
+   - 要求：
+     - 指定回流驗證命令（例如 `/workflow-python-validation <re-validation scope>`）
+     - 指定 `Re-Validation Scope`（需重驗的 FR/NFR/CR、TASK、AC）
+     - 若仍有未決資訊，標示阻塞與建議預設值

@@ -26,6 +26,8 @@ subtask: true
 6) 資訊補齊後才建立或更新 SPEC 與驗收標準。
 7) 僅輸出規劃文件，不進入開發與程式實作。
 8) 若任一 In-Scope 層（Frontend/Backend/Data）資訊不足，先列為 blocker 並提出預設值；不得遺漏任何 In-Scope 層內容，Out-of-Scope 層可標記 N/A。
+9) 規格建立階段必須明確決定 `Tech Stack`（至少 Backend 技術棧），並寫入 `SPEC.md`。
+10) 必須根據 `Tech Stack` 指定 `Target Bundle`（`dev-python` 或 `dev-dotnet`），供後續 `workflow-dev-general-loop.md` 路由使用。
 
 問題排解流程（Lite 版，必要時啟用）：
 - 適用時機：需求衝突、資訊反覆不足、同類問題重複。
@@ -101,6 +103,7 @@ subtask: true
      - 資料設計（模型/資料流/一致性/遷移）
      - API/契約設計（介面/錯誤碼/版本策略）
      - 前後端契約對齊（UI 事件 -> API -> 狀態回饋）
+     - Tech Stack 與 Target Bundle（validation/implement 路由）
    - 要求：條目清楚、可追溯，不可含實作程式碼。
 
 2) `ACCEPTANCE-CRITERIA.md`

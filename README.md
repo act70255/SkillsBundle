@@ -17,6 +17,20 @@
 
 ---
 
+## General Workflow（跨 Bundle 閉環）
+
+共用規範文件：`workflow-dev-general-loop.md`
+
+```text
+validation -> [SPEC]CHANGE-REQUEST.md -> /workflow-spec-update -> re-validation -> PASS -> implement
+```
+
+技術棧路由：
+- `Python/FastAPI` -> `/workflow-python-validation` / `/workflow-python-implement`
+- `.NET` -> `/workflow-dotnet-validation` / `/workflow-dotnet-implement`
+
+---
+
 ## `planning` 模組
 
 ### Workflow -> Called Skills
@@ -153,5 +167,6 @@
 ## 必要補充說明
 
 - Workflow 的 `<...>` 參數對應 command 模板中的 `$ARGUMENTS`。
+- 建議先在 `/workflow-spec-create` 明確決定 `Tech Stack` 與 `Target Bundle`。
 - 跨模組交接建議：`planning` -> `dev-dotnet/dev-python` -> `testing` -> `deployment`。
 - 若 `dev-*` 實作中遇到規格阻塞，先更新 `[SPEC]CHANGE-REQUEST.md`，再切回 `planning` 執行 `/workflow-spec-update`。

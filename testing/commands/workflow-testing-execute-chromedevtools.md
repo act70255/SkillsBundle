@@ -39,7 +39,7 @@ description: 執行 Chrome DevTools 測試、產出報告與阻塞交接
 自動化腳本產出：
 
 1. 本流程以執行既有腳本為主，不負責大量新腳本產生
-2. 若腳本缺漏，先執行 `/workflow-testing-script-generate-chromedevtools` 再回到本流程
+2. 若腳本缺漏，先執行 `/workflow-testing-genscript-chromedevtools` 再回到本流程
 
 請輸出（強制）：
 
@@ -68,8 +68,8 @@ description: 執行 Chrome DevTools 測試、產出報告與阻塞交接
 
 模板參考：
 
-- `.opencode/templates/TEST-PLAN.template.md`
-- `.opencode/templates/TEST-CASES.template.md`
-- `.opencode/templates/ACCEPTANCE-CRITERIA.template.md`
-- `.opencode/templates/TEST-REPORT.template.md`
-- `.opencode/templates/INPUT-GAP.template.md`
+- `../templates/TEST-PLAN.template.md`
+- `../templates/TEST-CASES.template.md`
+- `../templates/ACCEPTANCE-CRITERIA.template.md`
+- `../templates/TEST-REPORT.template.md`
+- `../templates/INPUT-GAP.template.md`
