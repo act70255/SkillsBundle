@@ -11,21 +11,29 @@ description: 執行 Playwright E2E 測試、產出報告與阻塞交接
 
 參數規範：
 
-- 建議格式：`<變更範圍> --site-url <url> --test-path <path>`
+- 建議格式：`<測試範圍> --site-url <url> --test-path <path>`
 - 無參數模式：可直接執行 `/workflow-testing-execute-playwright`；未提供任何參數時，依 `testing-artifacts/playwright/TEST-CASES.md` 與 `playwright.config.ts` 執行
 - 預設：若未傳入，執行 Playwright 既有設定（`playwright.config.ts`）
 - 網站目標：可用 `--site-url <url>` 明確指定本次測試站台（相容別名 `--base-url`）
 - 文件檔目錄：`--artifact-dir <path>`（預設 `testing-artifacts/playwright`）
+- secrets 檔：`--secrets-file <path>`（預設 `.env.playwright`，僅用於變數載入，不可寫入敏感值到報告）
 
 執行規範：
 
-0. 執行前必做「SITE/BASE_URL 確認」：
+0. 執行前必做「SITE/BASE_URL 與 Secrets 就緒確認」：
    - 先解析本次測試實際目標網址（優先序：`--site-url` > `--base-url` > `PLAYWRIGHT_BASE_URL` > `playwright.config.ts` 的 `use.baseURL`）
    - 在執行任何品質閘前，必須先回報「即將測試的完整 SITE URL」並取得使用者確認
    - 取得確認後，先做站台可達性預檢（例如 `curl -I <SITE_URL>` 或等效方式）
    - 若預檢失敗（DNS 失敗、連線逾時、TLS/憑證錯誤、HTTP 5xx），立即停止並回報錯誤，要求使用者確認或提供可用 URL
    - 若解析結果為 `127.0.0.1` 或 `localhost`，不得直接開跑；需先明確詢問是否改用指定環境 SITE（例如 dev/staging URL）
    - 未取得確認前，禁止執行 G1~G4
+   - 需先判斷本批次案例是否涉及登入/敏感資料（帳號、密碼、token、api key）
+   - 若需要 secrets：
+     - 先確認 `--secrets-file`（預設 `.env.playwright`）是否存在
+     - 若不存在，立即建立樣板（至少含 `PLAYWRIGHT_BASE_URL`, `PW_LOGIN_EMAIL`, `PW_LOGIN_PASSWORD`）
+     - 明確提醒使用者填入實際值後再執行，並停止於待命狀態
+     - 若檔案存在但必要變數為空值，視為環境阻塞並停止
+   - 若不需要 secrets，需在執行紀錄註記「Secrets not required for this batch」
 
 1. 若 `testing-artifacts/playwright/TEST-PLAN.md` 或 `testing-artifacts/playwright/TEST-CASES.md` 缺失（或 `--artifact-dir` 對應檔案缺失），立即停止執行並提示先跑 `/workflow-testing-plan-playwright`
 2. 若 `testing-artifacts/playwright/ACCEPTANCE-CRITERIA.md` 缺失（或 `--artifact-dir` 對應檔案缺失），立即停止執行並提示先跑 `/workflow-testing-plan-playwright` 補齊 AC 基線
@@ -38,6 +46,8 @@ description: 執行 Playwright E2E 測試、產出報告與阻塞交接
 8. G3 需檢查導頁覆蓋完整性：若 `TEST-CASES.md` 中 `NavigationType = route | hyperlink | redirect` 的 P0 案例未被腳本對應或未執行，G3 不得判定為 Pass
 9. 本流程以黑箱驗證為準，僅以可觀測行為（URL、DOM、可見文字、互動結果）判定通過與否，不得依賴內部實作狀態
 10. 若阻塞原因為站台不可達或測試資料不足，需歸類為環境阻塞並停止推測產品內部行為
+11. 若案例需要登入資料，執行前需檢查必要環境變數是否存在且非空（例如 `PW_LOGIN_EMAIL`、`PW_LOGIN_PASSWORD`）；缺少或空值時標記環境阻塞並輸出 secrets 樣板指引
+12. 測試輸出（console/log/report/blocker）不得回顯敏感值；僅可顯示變數名稱與是否已設定
 
 自動化腳本產出：
 
@@ -78,3 +88,4 @@ description: 執行 Playwright E2E 測試、產出報告與阻塞交接
 - `../templates/ACCEPTANCE-CRITERIA.template.md`
 - `../templates/TEST-REPORT.template.md`
 - `../templates/INPUT-GAP.template.md`
+- `../templates/PLAYWRIGHT-SECRETS.template.env`

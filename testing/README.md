@@ -22,6 +22,18 @@
 /workflow-testing-execute-<target> <scope> [options]
 ```
 
+或使用一鍵總流程：
+
+```bash
+/workflow-testing-<target> <scope> [options]
+```
+
+一鍵總流程說明：
+
+- 使用者只需呼叫一次 `/workflow-testing-<target>`
+- 總流程會先做補件與參數確認，再自動推進 `plan -> genscript -> execute`
+- 若缺件或阻塞，會停在當前階段並回報 `NextAction`，不會盲目往下執行
+
 `<target>` 可為：`vitest`、`playwright`、`chromedevtools`。
 
 ## 2) 輸入文件規則（含容錯）
@@ -39,6 +51,7 @@
 - `workflow-testing-plan-vitest`
 - `workflow-testing-genscript-vitest`
 - `workflow-testing-execute-vitest`
+- `workflow-testing-vitest`（總流程，一次串接 plan -> genscript -> execute）
 
 用途：前端單元/元件測試（邏輯、表單驗證、錯誤處理、邊界條件）。
 
@@ -47,6 +60,7 @@
 - `workflow-testing-plan-playwright`
 - `workflow-testing-genscript-playwright`
 - `workflow-testing-execute-playwright`
+- `workflow-testing-playwright`（總流程，一次串接 plan -> genscript -> execute）
 
 用途：端對端關鍵流程（登入、導頁、主要操作路徑）。
 
@@ -55,6 +69,7 @@
 - `workflow-testing-plan-chromedevtools`
 - `workflow-testing-genscript-chromedevtools`
 - `workflow-testing-execute-chromedevtools`
+- `workflow-testing-chromedevtools`（總流程，一次串接 plan -> genscript -> execute）
 
 用途：以 Chrome DevTools 自動化能力做瀏覽器互動驗證。
 
@@ -68,6 +83,12 @@
 /workflow-testing-execute-vitest src/pages/Authentication/LoginPage.vue --test-path testscripts/vitest --artifact-dir testing-artifacts/vitest
 ```
 
+### 範例 1-1：Vitest 一鍵總流程
+
+```bash
+/workflow-testing-vitest src/pages/Authentication/LoginPage.vue --src-path src/pages/Authentication --test-path testscripts/vitest --artifact-dir testing-artifacts/vitest
+```
+
 ### 範例 2：Playwright 測登入路由
 
 ```bash
@@ -76,12 +97,24 @@
 /workflow-testing-execute-playwright /auth/login --test-path testscripts/playwright --artifact-dir testing-artifacts/playwright
 ```
 
+### 範例 2-1：Playwright 一鍵總流程
+
+```bash
+/workflow-testing-playwright /auth/login --site-url https://staging.example.com --test-path testscripts/playwright --artifact-dir testing-artifacts/playwright
+```
+
 ### 範例 3：Chrome DevTools 測指定範圍
 
 ```bash
 /workflow-testing-plan-chromedevtools src/pages/Dashboard
 /workflow-testing-genscript-chromedevtools src/pages/Dashboard --src-path src/pages/Dashboard --test-path testscripts/chrome-devtools --artifact-dir testing-artifacts/chromedevtools
 /workflow-testing-execute-chromedevtools src/pages/Dashboard --test-path testscripts/chrome-devtools --artifact-dir testing-artifacts/chromedevtools
+```
+
+### 範例 3-1：Chrome DevTools 一鍵總流程
+
+```bash
+/workflow-testing-chromedevtools src/pages/Dashboard --site-url https://staging.example.com --src-path src/pages/Dashboard --test-path testscripts/chrome-devtools --artifact-dir testing-artifacts/chromedevtools
 ```
 
 ## 6) 主要輸出產物
@@ -136,6 +169,13 @@
 - genscript 主要輸出：Chrome DevTools 腳本（預設 `testscripts/chrome-devtools/`）、`testing-artifacts/chromedevtools/TEST-SCRIPT-REPORT.md`
 - Execute 前置檢查（Fail-fast）：`TEST-PLAN.md` / `TEST-CASES.md` / `ACCEPTANCE-CRITERIA.md` 缺失即停止
 - Execute 主要輸出：`testing-artifacts/chromedevtools/TEST-REPORT.md`、`testing-artifacts/chromedevtools/[TEST]BLOCKERS.md`（條件式）
+
+## 9) 一鍵總流程產物
+
+- `workflow-testing-vitest`：`testing-artifacts/vitest/WORKFLOW-RUN-REPORT.md`
+- `workflow-testing-playwright`：`testing-artifacts/playwright/WORKFLOW-RUN-REPORT.md`
+- `workflow-testing-chromedevtools`：`testing-artifacts/chromedevtools/WORKFLOW-RUN-REPORT.md`
+- 建議固定欄位：`WorkflowType`、`CurrentState`、`FinalStatus`、`InputSnapshot`、`StageResults`、`BlockerType`、`NextAction`
 
 ## 8) Artifact 目錄慣例
 

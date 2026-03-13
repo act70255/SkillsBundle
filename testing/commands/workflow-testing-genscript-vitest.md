@@ -11,8 +11,8 @@ description: 依測試文件與程式碼產出 Vitest 測試腳本
 
 參數規範：
 
-- 建議格式：`<變更範圍> --src-path <path> --test-path <path>`
-- 無參數模式：可直接執行 `/workflow-testing-genscript-vitest`；未提供 `<變更範圍>`、`--src-path`、`--test-path` 時，使用預設值
+- 建議格式：`<測試範圍> --src-path <path> --test-path <path>`
+- 無參數模式：可直接執行 `/workflow-testing-genscript-vitest`；未提供 `<測試範圍>`、`--src-path`、`--test-path` 時，使用預設值
 - 預設值：`--src-path src（若不存在則使用工作區根目錄） --test-path testscripts/vitest`
 - 文件檔目錄：`--artifact-dir <path>`（預設 `testing-artifacts/vitest`）
 - 路徑優先序：明確傳入參數 > 專案慣例路徑 > 預設值

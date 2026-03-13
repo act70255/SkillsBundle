@@ -11,8 +11,8 @@ description: 針對 Playwright E2E 建立測試策略、測試案例與品質閘
 
 參數規範（可省略）：
 
-- 建議格式：`<變更範圍> --site-url <url>`
-- 無參數模式：可直接執行 `/workflow-testing-plan-playwright`；未提供 `<變更範圍>` 與 `--site-url` 時，需先向使用者確認可測試的目標站台 URL
+- 建議格式：`<測試範圍> --site-url <url>`
+- 無參數模式：可直接執行 `/workflow-testing-plan-playwright`；未提供 `<測試範圍>` 與 `--site-url` 時，需先向使用者確認可測試的目標站台 URL
 - 輸出檔目錄：`--artifact-dir <path>`（預設 `testing-artifacts/playwright`）
 - 可選輸入模板：`--input-file <path>`（建議使用 `../templates/PLAYWRIGHT-INPUT.template.md`）
 - `--src-path <path>` 為可選補強參數（僅用於定位高風險區或疑難案例），非必要

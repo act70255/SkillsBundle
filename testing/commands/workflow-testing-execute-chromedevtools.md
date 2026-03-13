@@ -11,7 +11,7 @@ description: 執行 Chrome DevTools 測試、產出報告與阻塞交接
 
 參數規範：
 
-- 建議格式：`<變更範圍> --test-path <path>`
+- 建議格式：`<測試範圍> --test-path <path>`
 - 無參數模式：可直接執行 `/workflow-testing-execute-chromedevtools`；未提供任何參數時，預設執行 `testscripts/chrome-devtools/` 下腳本，並以 `testing-artifacts/chromedevtools/TEST-CASES.md` 作為案例基準
 - 預設：若未傳入 `--test-path`，使用 `testscripts/chrome-devtools/`
 - 網站目標：可用 `--site-url <url>` 明確指定本次測試站台

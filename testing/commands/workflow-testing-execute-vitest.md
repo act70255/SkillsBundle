@@ -11,7 +11,7 @@ description: 執行 Vitest 測試、產出報告與阻塞交接
 
 參數規範：
 
-- 建議格式：`<變更範圍> --test-path <path>`
+- 建議格式：`<測試範圍> --test-path <path>`
 - 無參數模式：可直接執行 `/workflow-testing-execute-vitest`；未提供任何參數時，依 `testing-artifacts/vitest/TEST-CASES.md` 與 Vitest 預設搜尋規則執行
 - 預設：若未傳入 `--test-path`，優先執行 `testscripts/vitest/`，若該路徑不存在則退回專案既有 Vitest 預設搜尋規則
 - 文件檔目錄：`--artifact-dir <path>`（預設 `testing-artifacts/vitest`）

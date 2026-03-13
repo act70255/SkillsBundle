@@ -11,10 +11,10 @@ description: 建立 Chrome DevTools 測試策略、測試案例與品質閘
 
 參數規範（可省略）：
 
-- 建議格式：`<變更範圍> --src-path <path>`
-- 無參數模式：可直接執行 `/workflow-testing-plan-chromedevtools`；未提供 `<變更範圍>` 與 `--src-path` 時，預設掃描 `src/`，若 `src/` 不存在則掃描工作區根目錄
+- 建議格式：`<測試範圍> --src-path <path>`
+- 無參數模式：可直接執行 `/workflow-testing-plan-chromedevtools`；未提供 `<測試範圍>` 與 `--src-path` 時，預設掃描 `src/`，若 `src/` 不存在則掃描工作區根目錄
 - 輸出檔目錄：`--artifact-dir <path>`（預設 `testing-artifacts/chromedevtools`）
-- 路徑優先序：明確傳入 `--src-path` > `<變更範圍>` 可推導路徑 > 預設路徑
+- 路徑優先序：明確傳入 `--src-path` > `<測試範圍>` 可推導路徑 > 預設路徑
 - 若推導後掃描範圍過廣（例如跨多模組或大量檔案），需先向使用者確認是否縮小範圍再執行
 
 輸入檢查（容錯）：
