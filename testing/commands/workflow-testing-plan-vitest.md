@@ -3,7 +3,7 @@ description: 針對 Vitest 建立測試策略、測試案例與品質閘
 ---
 
 請先主動載入並使用以下 skills（依序）：
-`testing-qa, javascript-testing-patterns, test-driven-development, code-review-checklist`
+`scout-regiment-workflow-lite, testing-qa, javascript-testing-patterns, test-driven-development, code-review-checklist`
 
 目標：
 

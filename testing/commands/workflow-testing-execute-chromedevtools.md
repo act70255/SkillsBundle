@@ -3,7 +3,7 @@ description: 執行 Chrome DevTools 測試、產出報告與阻塞交接
 ---
 
 請先主動載入並使用以下 skills（依序）：
-`testing-qa, browser-automation, systematic-debugging, test-fixing, verification-before-completion`
+`scout-regiment-workflow-lite, testing-qa, browser-automation, systematic-debugging, test-fixing, verification-before-completion`
 
 目標：
 

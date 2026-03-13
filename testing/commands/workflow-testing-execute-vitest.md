@@ -3,7 +3,7 @@ description: 執行 Vitest 測試、產出報告與阻塞交接
 ---
 
 請先主動載入並使用以下 skills（依序）：
-`testing-qa, javascript-testing-patterns, systematic-debugging, test-fixing, verification-before-completion`
+`scout-regiment-workflow-lite, testing-qa, javascript-testing-patterns, systematic-debugging, test-fixing, verification-before-completion`
 
 目標：
 

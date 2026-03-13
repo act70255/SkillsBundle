@@ -3,7 +3,7 @@ description: 依規格文件實作 Python/FastAPI 功能並回填驗收覆蓋
 ---
 
 請先主動載入並使用以下 skills（依序）：
-`python-fastapi-development, python-patterns, async-python-patterns, clean-code, python-testing-patterns`
+`scout-regiment-workflow-lite, python-fastapi-development, python-patterns, async-python-patterns, clean-code, python-testing-patterns`
 
 目標：
 - 依規格文件與 `TASKS.md` 完成 Python/FastAPI 實作，並回報驗收覆蓋與風險。

@@ -3,7 +3,7 @@ description: 執行部署流程與上線後驗證
 ---
 
 請先主動載入並使用以下 skills（依序）：
-`deployment-engineer, cloud-devops, deployment-procedures, deployment-validation-config-validate, observability-engineer, incident-responder`
+`scout-regiment-workflow-lite, deployment-engineer, cloud-devops, deployment-procedures, deployment-validation-config-validate, observability-engineer, incident-responder`
 
 目標：
 - 依流程執行 $ARGUMENTS 部署與驗證，並在失敗時提供明確回滾決策。

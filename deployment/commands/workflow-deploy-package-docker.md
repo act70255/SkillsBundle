@@ -3,7 +3,7 @@ description: 建立並驗證 Docker 打包產物
 ---
 
 請先主動載入並使用以下 skills（依序）：
-`docker-expert, deployment-engineer, cloud-devops, deployment-validation-config-validate`
+`scout-regiment-workflow-lite, docker-expert, deployment-engineer, cloud-devops, deployment-validation-config-validate`
 
 目標：
 - 針對 $ARGUMENTS 建立可部署的 Docker 產物，並完成最小可用驗證。

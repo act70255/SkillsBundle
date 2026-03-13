@@ -3,7 +3,7 @@ description: 依規格文件實作 .NET 功能並回填驗收覆蓋
 ---
 
 請先主動載入並使用以下 skills（依序）：
-`development, dotnet-backend, dotnet-backend-patterns, clean-code, lint-and-validate`
+`scout-regiment-workflow-lite, development, dotnet-backend, dotnet-backend-patterns, clean-code, lint-and-validate`
 
 目標：
 - 依規格文件與 `TASKS.md` 完成 .NET 實作，並回報驗收覆蓋與風險。

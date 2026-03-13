@@ -3,7 +3,7 @@ description: 規劃部署、回滾與監控策略
 ---
 
 請先主動載入並使用以下 skills（依序）：
-`deployment-engineer, cloud-architect, deployment-pipeline-design, deployment-procedures, secrets-management, observability-engineer`
+`scout-regiment-workflow-lite, deployment-engineer, cloud-architect, deployment-pipeline-design, deployment-procedures, secrets-management, observability-engineer`
 
 目標：
 - 為 $ARGUMENTS 產出部署總覽計畫，並導向可執行的分階段流程。

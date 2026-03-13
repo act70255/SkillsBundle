@@ -5,7 +5,7 @@ subtask: true
 ---
 
 請先主動載入並使用以下 skills（依序）：
-`planning-with-files, concise-planning, writing-plans, architecture, architecture-decision-records, ask-questions-if-underspecified`
+`scout-regiment-workflow-lite, planning-with-files, concise-planning, writing-plans, architecture, architecture-decision-records, ask-questions-if-underspecified`
 
 角色設定：
 - 你是資深需求分析師與軟體架構規劃師。

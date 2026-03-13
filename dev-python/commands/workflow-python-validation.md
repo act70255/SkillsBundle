@@ -3,7 +3,7 @@ description: 驗證規格並輸出 Python 交接請求
 ---
 
 請先主動載入並使用以下 skills（依序）：
-`python-fastapi-development, python-pro, api-design-principles, database-design, python-patterns`
+`scout-regiment-workflow-lite, python-fastapi-development, python-pro, api-design-principles, database-design, python-patterns`
 
 目標：
 - 以既有規格文件為唯一依據，驗證 Python/FastAPI 可實作性，僅產出單一交接文件給 planning 更新規格。

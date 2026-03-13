@@ -3,7 +3,7 @@ description: 驗證規格並產出 .NET 實作藍圖
 ---
 
 請先主動載入並使用以下 skills（依序）：
-`development, dotnet-architect, api-design-principles, database-design, dotnet-backend-patterns`
+`scout-regiment-workflow-lite, development, dotnet-architect, api-design-principles, database-design, dotnet-backend-patterns`
 
 目標：
 - 以既有規格文件為唯一依據，驗證可實作性，僅產出單一交接文件給 planning 更新規格（不直接進入程式實作）。

@@ -3,7 +3,7 @@ description: 建立 CI/CD 部署管線與自動驗證
 ---
 
 請先主動載入並使用以下 skills（依序）：
-`deployment-pipeline-design, cicd-automation-workflow-automate, github-actions-templates, gitlab-ci-patterns, git-advanced-workflows, deployment-validation-config-validate, observability-engineer`
+`scout-regiment-workflow-lite, deployment-pipeline-design, cicd-automation-workflow-automate, github-actions-templates, gitlab-ci-patterns, git-advanced-workflows, deployment-validation-config-validate, observability-engineer`
 
 目標：
 - 為 $ARGUMENTS 建立可重複執行的 CI/CD 部署流程，並加入部署前後驗證守門。

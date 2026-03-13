@@ -3,7 +3,7 @@ description: 依測試文件與程式碼產出 Playwright E2E 測試腳本
 ---
 
 請先主動載入並使用以下 skills（依序）：
-`testing-qa, e2e-testing, playwright-skill, browser-automation, code-review-checklist`
+`scout-regiment-workflow-lite, testing-qa, e2e-testing, playwright-skill, browser-automation, code-review-checklist`
 
 目標：
 

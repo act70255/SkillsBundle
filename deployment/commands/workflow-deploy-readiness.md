@@ -3,7 +3,7 @@ description: 上線前 Readiness 檢查與風險分級
 ---
 
 請先主動載入並使用以下 skills（依序）：
-`cloud-devops, environment-setup-guide, secrets-management, deployment-validation-config-validate, incident-runbook-templates, observability-engineer`
+`scout-regiment-workflow-lite, cloud-devops, environment-setup-guide, secrets-management, deployment-validation-config-validate, incident-runbook-templates, observability-engineer`
 
 目標：
 - 針對 $ARGUMENTS 執行部署前就緒檢查，確認是否可安全進入打包與部署。

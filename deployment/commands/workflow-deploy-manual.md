@@ -3,7 +3,7 @@ description: 依 Runbook 手動部署與回滾演練
 ---
 
 請先主動載入並使用以下 skills（依序）：
-`deployment-procedures, deployment-engineer, incident-runbook-templates, cloud-devops, incident-responder, observability-engineer`
+`scout-regiment-workflow-lite, deployment-procedures, deployment-engineer, incident-runbook-templates, cloud-devops, incident-responder, observability-engineer`
 
 目標：
 - 針對 $ARGUMENTS 執行手動部署，並完成 post-deploy 驗證與回滾可行性確認。
