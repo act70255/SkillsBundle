@@ -40,7 +40,7 @@ description: 執行 Playwright E2E 測試、產出報告與阻塞交接
 3. 依 `testing-artifacts/playwright/TEST-PLAN.md` 與 `testing-artifacts/playwright/TEST-CASES.md`（或 `--artifact-dir` 對應檔案）執行，不得自行改動測試目標
 4. 依序執行品質閘（G1 -> G2 -> G3 -> G4）
 5. 品質閘執行重點：
-   - G3（E2E）必須執行 Playwright：若提供 `--test-path` 則執行 `yarn playwright test <test-path>`；未提供則執行 `yarn playwright test`
+   - G3（E2E）必須執行 Playwright：若提供 `--test-path` 則執行 `npm exec playwright test <test-path>`；未提供則執行 `npm exec playwright test`
 6. 先分類失敗原因（spec 問題 / 實作問題 / 環境問題）
 7. 可修復者先修復並做回歸驗證，不可修復者標記阻塞
 8. G3 需檢查導頁覆蓋完整性：若 `TEST-CASES.md` 中 `NavigationType = route | hyperlink | redirect` 的 P0 案例未被腳本對應或未執行，G3 不得判定為 Pass
@@ -68,7 +68,7 @@ description: 執行 Playwright E2E 測試、產出報告與阻塞交接
 1. 測試結論摘要（Gate 與總體 Pass/Fail）
 2. 「如何查看測試結果與報告」操作說明（至少包含）：
    - `TEST-REPORT.md` 實際路徑
-   - Playwright HTML report 路徑與開啟命令（例如 `yarn playwright show-report <report-dir>`）
+   - Playwright HTML report 路徑與開啟命令（例如 `npm exec playwright show-report <report-dir>`）
    - 測試 artifacts 路徑（trace/screenshot/video）
    - 重跑命令（全量與本次使用的 `--test-path`/`--grep` 子集命令）
 

@@ -36,6 +36,15 @@
 
 `<target>` 可為：`vitest`、`playwright`、`chromedevtools`。
 
+## 1-1) NPM-Only Policy（Playwright）
+
+- `playwright` 與 `testing-e2e` 相關 workflow 一律以 `npm` 為唯一 package manager
+- 文件、範例、執行命令、dry-run 與 report 開啟方式，皆以 `npm exec playwright ...` 為準
+- 依賴安裝優先使用 `npm ci`；若專案缺少 lockfile 或 `npm ci` 不適用，才退回 `npm install`
+- Playwright browser binaries 安裝命令統一為 `npm exec playwright install`
+- 不應在 Playwright 相關 workflow 中混用 `yarn`、`pnpm`、`npx playwright ...` 或其他 package manager 語法
+- 若 repo 未安裝 `npm` 或 Node.js，視為環境阻塞，需先補齊執行環境再進入 Playwright workflow
+
 ## 2) 輸入文件規則（含容錯）
 
 - 優先讀取：`SPEC.md`、`ACCEPTANCE-CRITERIA.md`、`TASKS.md`
@@ -59,6 +68,7 @@
 
 - `workflow-testing-plan-playwright`
 - `workflow-testing-genscript-playwright`
+- `workflow-testing-e2e`（主流程：input -> spec -> site -> docs -> script -> validate）
 - `workflow-testing-execute-playwright`
 - `workflow-testing-playwright`（總流程，一次串接 plan -> genscript -> execute）
 
@@ -101,6 +111,12 @@
 
 ```bash
 /workflow-testing-playwright /auth/login --site-url https://staging.example.com --test-path testscripts/playwright --artifact-dir testing-artifacts/playwright
+```
+
+### 範例 2-2：Playwright 只做規劃與產碼（不執行）
+
+```bash
+/workflow-testing-e2e /auth/login --site-url https://staging.example.com --test-path testscripts/playwright --artifact-dir testing-artifacts/playwright
 ```
 
 ### 範例 3：Chrome DevTools 測指定範圍
@@ -174,11 +190,13 @@
 
 - `workflow-testing-vitest`：`testing-artifacts/vitest/WORKFLOW-RUN-REPORT.md`
 - `workflow-testing-playwright`：`testing-artifacts/playwright/WORKFLOW-RUN-REPORT.md`
+- `workflow-testing-e2e`：`testing-artifacts/playwright/workflow-handoff/[WORKFLOW]RUN-REPORT.md`（主流程+子流程彙整）
 - `workflow-testing-chromedevtools`：`testing-artifacts/chromedevtools/WORKFLOW-RUN-REPORT.md`
 - 建議固定欄位：`WorkflowType`、`CurrentState`、`FinalStatus`、`InputSnapshot`、`StageResults`、`BlockerType`、`NextAction`
 
 ## 8) Artifact 目錄慣例
 
 - 三條路線預設使用分流目錄，避免互相覆蓋：`testing-artifacts/<target>/`
+- `workflow-testing-e2e` 額外採用雙資料夾：`workflow-handoff/`（內部交接）與 `workflow-deliverables/`（對外交付）
 - 可用 `--artifact-dir <path>` 覆寫，但同一批次的 `plan`、`genscript`、`execute` 必須使用同一路徑
 - 目錄策略、覆蓋/保留與清理建議請參考：`.opencode/README_TESTING_ARTIFACTS.md`
