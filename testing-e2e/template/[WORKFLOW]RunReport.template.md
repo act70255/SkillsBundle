@@ -10,7 +10,9 @@
 - Target URL:
 - Dev Docs Path:
 - Source Code Path:
-- Playwright Scan Options:
+- Playwright Max Depth:
+- Playwright Max Pages:
+- Playwright Headless:
 
 ## 驗證
 - Requires Login: unknown
@@ -22,8 +24,12 @@
 ## 產物
 - Handoff Root: testing-artifact/handoff/
 - Deliverables Root: testing-artifact/deliverables/
+- Docs Baseline: testing-artifact/handoff/[WORKFLOW]DocsBaseline.md
+- Site Scan Summary: testing-artifact/handoff/[WORKFLOW]SiteScanSummary.md
 - Test Plan: testing-artifact/deliverables/TestPlan.md
+- Test Cases: testing-artifact/deliverables/TestCases.md
 - Test Script: testing-artifact/scripts/TestScript.ts
+- Execution Summary: testing-artifact/handoff/[WORKFLOW]ExecutionSummary.md
 - Test Report: testing-artifact/deliverables/TestReport.md
 
 ## 檢查清單
@@ -33,7 +39,7 @@
 - [ ] Step 3 - Read development documents
 - [ ] Step 4 - Determine whether login is required
 - [ ] Step 5 - Scan pages with Playwright
-- [ ] Step 6 - Generate test plan and test scripts
+- [ ] Step 6 - Generate test plan, cases, and scripts
 - [ ] Step 7 - Execute test scripts
 - [ ] Step 8 - Generate test report
 

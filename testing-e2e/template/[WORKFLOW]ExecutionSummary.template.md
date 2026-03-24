@@ -14,6 +14,8 @@
 - Passed:
 - Failed:
 - Skipped:
+- Executed Case IDs:
+- Not Executed Case IDs:
 
 ## 失敗細節
 - Blocking Failures:

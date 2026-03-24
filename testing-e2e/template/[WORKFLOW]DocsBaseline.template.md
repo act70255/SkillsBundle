@@ -8,16 +8,33 @@
 ## 文件來源
 - Primary Docs:
 - Supporting Docs:
+- Unread / Missing Docs:
 
-## 功能範圍
-- Core Features:
-- Critical Flows:
-- Roles / Permissions:
+## 功能與頁面盤點
+- Feature Inventory:
+- Page / Route Inventory:
+- Entry Conditions:
 
-## 限制條件
+## 角色與存取
+- Roles / Permissions Matrix:
+- Protected Areas:
 - Login Requirements:
-- Environment Notes:
-- Known Risks:
+- Session / SSO Notes:
+
+## 核心流程與規則
+- Core Flows:
+- Exception Flows:
+- Business Rules:
+- Test Data / Preconditions:
+
+## 測試線索
+- Observable UI Signals:
+- Network / API Clues:
+- Automation Targets:
+- Known Risks / Constraints:
+
+## 開放問題
+- Open Questions:
 
 ## 備註
 -

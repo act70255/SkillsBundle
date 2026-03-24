@@ -18,12 +18,14 @@ subtask: true
 - 若 `testing-artifact/deliverables/TestReport.md` 不存在，先用 `@.opencode/template/[WORKFLOW]TestReport.template.md` 建立。
 - 寫入：`testing-artifact/deliverables/TestReport.md`
 - 缺少必要前提時，更新 `testing-artifact/handoff/[WORKFLOW]RunReport.md` 為 `BLOCKED` 並停止。
-- 報告需包含測試範圍、執行結果、失敗案例、風險與建議。
+- 報告需包含測試範圍、執行結果、失敗案例、未覆蓋範圍、殘餘風險與建議。
+- 報告需回扣 `TestPlan`、`TestCases` 與 `ExecutionSummary`，保留案例追溯與文件差異造成的風險說明。
 - 完成後將報告路徑寫入 `Artifacts` 的 `testing-artifact/deliverables/` 區塊，更新 checklist、`Current Step`、`Last Updated`，並將 `Status` 設為 `DONE`。
 
 回覆時請說明：
 
 - 產出的報告內容摘要
 - 最終 workflow 狀態
+- 已覆蓋、未覆蓋與阻塞範圍如何整理
 - `testing-artifact/deliverables/TestReport.md` 寫入了哪些內容
 - `testing-artifact/handoff/[WORKFLOW]RunReport.md` 更新了哪些內容

@@ -21,6 +21,8 @@ subtask: true
 - 讀取：`testing-artifact/handoff/[WORKFLOW]RunReport.md`、`testing-artifact/handoff/[WORKFLOW]InputSummary.md`
 - 若 `testing-artifact/handoff/[WORKFLOW]DocsBaseline.md` 不存在，先用 `@.opencode/template/[WORKFLOW]DocsBaseline.template.md` 建立。
 - 寫入：`testing-artifact/handoff/[WORKFLOW]DocsBaseline.md`
+- Step 3 的文件整理必須至少涵蓋：功能清單、頁面或路由清單、角色與權限矩陣、核心流程、例外流程、商業規則、測試資料或前置條件、環境限制、可觀測 UI 或 API 線索。
+- 文件缺漏或互相矛盾時，必須在 `Known Risks / Constraints` 或 `Open Questions` 內明確標示，不得由 agent 自行腦補流程。
 - 完成 Step 3 後，必須先更新 `testing-artifact/handoff/[WORKFLOW]RunReport.md`，勾選 Step 3 checklist，並將 `Current Step` 推進到 Step 4，再開始登入判定。
 - Step 4 必須先使用 `testing-artifact/handoff/[WORKFLOW]DocsBaseline.md` 的文件結果，再對 `target_url` 做一次輕量 Playwright 探測。
 - 輕量 Playwright 探測只用來判定登入需求，至少要檢查 redirect、登入表單、未授權提示、`401/403` 與主要內容是否因未登入而不可見。
@@ -36,6 +38,7 @@ subtask: true
 
 - 讀了哪些文件
 - 擷取了哪些測試相關資訊
+- 文件基線整理了哪些功能、頁面、角色、流程與測試線索
 - 是否需要登入
 - Step 4 是依哪些文件與 Playwright 訊號得出判定
 - `testing-artifact/handoff/[WORKFLOW]DocsBaseline.md` 寫入了哪些內容

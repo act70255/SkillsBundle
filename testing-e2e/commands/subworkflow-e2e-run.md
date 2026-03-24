@@ -20,12 +20,13 @@ subtask: true
 - 寫入：`testing-artifact/handoff/[WORKFLOW]ExecutionSummary.md`
 - 缺少必要前提時，更新 `testing-artifact/handoff/[WORKFLOW]RunReport.md` 為 `BLOCKED` 並停止。
 - 若缺少必要登入環境變數，僅記錄缺少的變數名稱或載入失敗狀態，不得讀取或回覆 `.env.playwright` 的實際值。
-- 執行後需整理成功、失敗、跳過、主要錯誤原因。
+- 執行後需整理成功、失敗、跳過、主要錯誤原因，並標示對應 case ID。
 - 完成後更新 checklist、`Current Step`、`Notes`、`Last Updated`。
 
 回覆時請說明：
 
 - 執行了哪些測試
 - 結果摘要為何
+- 哪些 case ID 通過、失敗或未執行
 - `testing-artifact/handoff/[WORKFLOW]ExecutionSummary.md` 寫入了哪些內容
 - `testing-artifact/handoff/[WORKFLOW]RunReport.md` 更新了哪些內容
