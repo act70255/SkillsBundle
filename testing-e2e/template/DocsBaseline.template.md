@@ -1,7 +1,6 @@
 # 文件基線
 
 ## 中繼資料
-- Workflow: workflow-e2e
 - Stage: Step 3
 - Last Updated:
 

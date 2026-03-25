@@ -1,7 +1,6 @@
 # 站台掃描摘要
 
 ## 中繼資料
-- Workflow: workflow-e2e
 - Stage: Step 5
 - Last Updated:
 
@@ -11,7 +10,7 @@
 - Playwright Max Pages Used:
 - Playwright Headless Used:
 - Auth State:
-- Baseline Reference: testing-artifact/handoff/[WORKFLOW]DocsBaseline.md
+- Baseline Reference: testing-artifact/handoff/DocsBaseline.md
 
 ## 觀察頁面
 - Entry Points:

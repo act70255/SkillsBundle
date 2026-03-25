@@ -1,7 +1,6 @@
 # 執行摘要
 
 ## 中繼資料
-- Workflow: workflow-e2e
 - Stage: Step 7
 - Last Updated:
 
@@ -14,8 +13,14 @@
 - Passed:
 - Failed:
 - Skipped:
+- Blocked:
 - Executed Case IDs:
 - Not Executed Case IDs:
+
+## 案例逐項結果
+| Case ID | Status | Key Assertions | Error Summary | Evidence |
+| --- | --- | --- | --- | --- |
+| TC-001 | PASS |  | none | console/log ref |
 
 ## 失敗細節
 - Blocking Failures:

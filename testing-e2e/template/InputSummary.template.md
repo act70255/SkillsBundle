@@ -1,7 +1,6 @@
 # 輸入摘要
 
 ## 中繼資料
-- Workflow: workflow-e2e
 - Stage: Step 1-2
 - Last Updated:
 

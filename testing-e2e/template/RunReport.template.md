@@ -1,7 +1,6 @@
 # Workflow 執行報告
 
 ## 中繼資料
-- Workflow: workflow-e2e
 - Status: NEW
 - Current Step: Step 0
 - Last Updated:
@@ -24,12 +23,12 @@
 ## 產物
 - Handoff Root: testing-artifact/handoff/
 - Deliverables Root: testing-artifact/deliverables/
-- Docs Baseline: testing-artifact/handoff/[WORKFLOW]DocsBaseline.md
-- Site Scan Summary: testing-artifact/handoff/[WORKFLOW]SiteScanSummary.md
+- Docs Baseline: testing-artifact/handoff/DocsBaseline.md
+- Site Scan Summary: testing-artifact/handoff/SiteScanSummary.md
 - Test Plan: testing-artifact/deliverables/TestPlan.md
 - Test Cases: testing-artifact/deliverables/TestCases.md
 - Test Script: testing-artifact/scripts/TestScript.ts
-- Execution Summary: testing-artifact/handoff/[WORKFLOW]ExecutionSummary.md
+- Execution Summary: testing-artifact/handoff/ExecutionSummary.md
 - Test Report: testing-artifact/deliverables/TestReport.md
 
 ## 檢查清單

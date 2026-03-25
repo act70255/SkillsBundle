@@ -7,10 +7,10 @@
 ## 目標
 
 - 以固定步驟推進，不依賴臨場發揮。
-- 以 `testing-artifact/handoff/[WORKFLOW]RunReport.md` 作為 runtime 唯一狀態來源。
+- 以 `testing-artifact/handoff/RunReport.md` 作為 runtime 唯一狀態來源。
 - 缺少必要資訊時，先互動補齊；仍不足則標記 `BLOCKED` 並停止。
-- 若 `testing-artifact/handoff/[WORKFLOW]RunReport.md` 不存在，視為新工作並從頭初始化。
-- 若 `testing-artifact/handoff/[WORKFLOW]RunReport.md` 存在，優先接續未完成進度。
+- 若 `testing-artifact/handoff/RunReport.md` 不存在，視為新工作並從頭初始化。
+- 若 `testing-artifact/handoff/RunReport.md` 存在，優先接續未完成進度。
 - 將文件分析、站台掃描、測試案例、測試腳本與測試報告串成可追溯鏈條。
 
 ## 目錄角色
@@ -18,17 +18,17 @@
 - `testing-e2e/commands/`: workflow command 規格與流程約束。
 - `testing-e2e/template/`: handoff 與 deliverable 樣板來源。
 - `testing-e2e/scripts/`: workflow 規格驗證腳本。
-- `.opencode/template/[WORKFLOW]RunReport.template.md`: runtime 初始化模板；source 規格檔位於 `testing-e2e/template/[WORKFLOW]RunReport.template.md`。
-- `.opencode/template/[WORKFLOW]InputSummary.template.md`: Step 1-2 輸入整理模板。
-- `.opencode/template/[WORKFLOW]DocsBaseline.template.md`: Step 3 文件基線模板。
-- `.opencode/template/[WORKFLOW]SiteScanSummary.template.md`: Step 5 站台掃描基線模板。
-- `.opencode/template/[WORKFLOW]ExecutionSummary.template.md`: Step 7 執行摘要模板。
+- `.opencode/template/RunReport.template.md`: runtime 初始化模板；source 規格檔位於 `testing-e2e/template/RunReport.template.md`。
+- `.opencode/template/InputSummary.template.md`: Step 1-2 輸入整理模板。
+- `.opencode/template/DocsBaseline.template.md`: Step 3 文件基線模板。
+- `.opencode/template/SiteScanSummary.template.md`: Step 5 站台掃描基線模板。
+- `.opencode/template/ExecutionSummary.template.md`: Step 7 執行摘要模板。
 - `.opencode/template/[WORKFLOW]TestScript.template.ts`: Step 6 Playwright 測試腳本模板。
 - `.opencode/template/[WORKFLOW]TestPlan.template.md`: Step 6 測試計畫模板。
 - `.opencode/template/[WORKFLOW]TestCases.template.md`: Step 6 測試案例模板。
 - `.opencode/template/[WORKFLOW]TestReport.template.md`: Step 8 測試報告模板。
 - `.opencode/template/.env.playwright.template`: 目標站台需要登入時，用來產出本次 workflow Playwright 環境檔的模板。
-- `testing-artifact/handoff/[WORKFLOW]RunReport.md`: runtime workflow 狀態檔與交接主檔。
+- `testing-artifact/handoff/RunReport.md`: runtime workflow 狀態檔與交接主檔。
 - `testing-artifact/scripts/`: Playwright 測試腳本集中放置目錄。
 - `testing-artifact/deliverables/`: 最終交付給人類閱讀的成果目錄。
 
@@ -36,19 +36,19 @@
 
 | Step | 目的 | 核心輸出 |
 | --- | --- | --- |
-| 0 | 檢查 `testing-artifact/handoff/[WORKFLOW]RunReport.md` 狀態 | `testing-artifact/handoff/[WORKFLOW]RunReport.md` |
+| 0 | 檢查 `testing-artifact/handoff/RunReport.md` 狀態 | `testing-artifact/handoff/RunReport.md` |
 | 1 | 檢查輸入資訊 | 輸入缺漏清單 |
-| 2 | 與使用者問答補充輸入資訊 | `testing-artifact/handoff/[WORKFLOW]InputSummary.md` |
-| 3 | 閱讀開發文件 | `testing-artifact/handoff/[WORKFLOW]DocsBaseline.md` |
+| 2 | 與使用者問答補充輸入資訊 | `testing-artifact/handoff/InputSummary.md` |
+| 3 | 閱讀開發文件 | `testing-artifact/handoff/DocsBaseline.md` |
 | 4 | 依文件與輕量 Playwright 探測判定是否需要登入，必要時再向使用者確認 | 登入需求判定 / `testing-artifact/deliverables/.env.playwright` |
-| 5 | 使用 Playwright 依文件掃描站台頁面 | `testing-artifact/handoff/[WORKFLOW]SiteScanSummary.md` |
+| 5 | 使用 Playwright 依文件掃描站台頁面 | `testing-artifact/handoff/SiteScanSummary.md` |
 | 6 | 產出測試計畫、測試案例與測試腳本 | `testing-artifact/deliverables/TestPlan.md`、`testing-artifact/deliverables/TestCases.md`、`testing-artifact/scripts/TestScript.ts` |
-| 7 | 執行測試腳本 | `testing-artifact/handoff/[WORKFLOW]ExecutionSummary.md` |
+| 7 | 執行測試腳本 | `testing-artifact/handoff/ExecutionSummary.md` |
 | 8 | 產出測試報告 | `testing-artifact/deliverables/TestReport.md` |
 
 流程順序摘要：
 
-0. 檢查 `testing-artifact/handoff/[WORKFLOW]RunReport.md` 狀態
+0. 檢查 `testing-artifact/handoff/RunReport.md` 狀態
 1. 檢查輸入資訊
 2. 與使用者問答補充輸入資訊
 3. 閱讀開發文件
@@ -60,8 +60,8 @@
 
 ## Step 0 規則
 
-- workflow 每次啟動時都必須先檢查 `testing-artifact/handoff/[WORKFLOW]RunReport.md`。
-- 若檔案不存在，視為新工作，先確認並建立 `testing-artifact/handoff/` 與 `testing-artifact/deliverables/`，再以 `.opencode/template/[WORKFLOW]RunReport.template.md` 建立 `testing-artifact/handoff/[WORKFLOW]RunReport.md`，最後從 Step 1 開始。
+- workflow 每次啟動時都必須先檢查 `testing-artifact/handoff/RunReport.md`。
+- 若檔案不存在，視為新工作，先確認並建立 `testing-artifact/handoff/` 與 `testing-artifact/deliverables/`，再以 `.opencode/template/RunReport.template.md` 建立 `testing-artifact/handoff/RunReport.md`，最後從 Step 1 開始。
 - 若檔案存在，先讀取 `Status`、`Current Step`、`Checklist`、`Blocking Issues`。
 - 僅允許從第一個未完成步驟續跑，不得任意跳步或重置已完成步驟。
 - 若 `Status=DONE`，預設不續跑，除非使用者明確要求開新工作或重啟 workflow。
@@ -88,7 +88,7 @@
 - `playwright_max_depth` 若未提供，必須明確記錄為 `default(3)`。
 - `playwright_max_pages` 若未提供，必須明確記錄為 `default(20)`。
 - `playwright_headless` 若未提供，必須明確記錄為 `default(true)`。
-- 在 Step 2 完成前，`testing-artifact/handoff/[WORKFLOW]InputSummary.md` 不可保留意義不明的空白選填欄位。
+- 在 Step 2 完成前，`testing-artifact/handoff/InputSummary.md` 不可保留意義不明的空白選填欄位。
 
 ## 狀態規則
 
@@ -102,7 +102,7 @@
 
 任一步驟若缺少必要項目，workflow 必須：
 
-1. 更新 `testing-artifact/handoff/[WORKFLOW]RunReport.md`
+1. 更新 `testing-artifact/handoff/RunReport.md`
 2. 將 `Status` 設為 `BLOCKED`
 3. 寫明 `Blocking Issues`
 4. 寫明 `Next Action`
@@ -114,6 +114,14 @@
 2. 提示使用者填寫 `testing-artifact/deliverables/.env.playwright`
 3. 將狀態設為 `BLOCKED`
 4. 停止後續步驟
+
+## 續跑與停點規則
+
+- workflow 預設必須連續執行；若某一步完成且狀態不是 `BLOCKED`、`FAILED`、`DONE`，就必須自動接續下一步。
+- 合法停點只允許發生在以下情況：Step 2 一問一答補輸入中、Step 4 登入需求無法明確判定、缺少登入憑證、任一步驟進入 `BLOCKED`、任一步驟進入 `FAILED`、或整體 workflow 已 `DONE`。
+- 單純的進度回報不是合法停點；workflow 不得因為某一步完成就等待使用者輸入 `continue`、`確認是否繼續` 或其他批准訊號。
+- Step 5 成功完成後必須直接進入 Step 6；Step 6 成功完成後必須直接進入 Step 7；Step 7 成功完成後必須直接進入 Step 8。
+- Step 8 完成後應直接結束為 `DONE`，不再等待額外確認。
 
 ## Step 3 文件基線規則
 
@@ -138,7 +146,7 @@
 
 ## Step 5 掃站規則
 
-- Step 5 必須拿 `testing-artifact/handoff/[WORKFLOW]DocsBaseline.md` 當對照基線，不可脫離文件重新自由探索。
+- Step 5 必須拿 `testing-artifact/handoff/DocsBaseline.md` 當對照基線，不可脫離文件重新自由探索。
 - 掃站至少要整理：實際入口、可達頁面、阻塞頁面、主流程節點、關鍵互動元件、與文件不一致之處、可自動化測試的候選目標。
 - 若文件宣稱存在某功能或頁面，但掃站找不到，必須在 `Document Mismatches` 記錄，而不是默默忽略。
 - 若掃站觀察到額外風險，例如 unstable selector、非同步載入、權限切換、資料相依，必須回寫給 Step 6 使用。
@@ -154,9 +162,10 @@
 
 ## Step 7-8 結果追溯規則
 
-- Step 7 的執行摘要需標示已執行 case ID、成功與失敗案例、主要錯誤原因與重現線索。
-- Step 8 的最終報告需回扣 `TestPlan` 與 `TestCases`，明確區分已覆蓋、未覆蓋與受阻範圍。
+- Step 7 的執行摘要需標示已執行 case ID、成功與失敗案例、主要錯誤原因與重現線索，並保留可直接回填 Step 8 的案例逐項結果。
+- Step 8 的最終報告需回扣 `TestPlan` 與 `TestCases`，明確區分已覆蓋、未覆蓋與受阻範圍，且不可只提供 summary，必須逐項列出每個 case 的結果與證據。
 - 若有文件與站台不一致造成測試風險，必須在最終報告中保留殘餘風險與建議。
+- workflow 進入 `DONE` 時，對話回覆也必須直接總結測試結果，至少包含整體結果、Passed / Failed / Blocked / Skipped 摘要、主要失敗原因、未覆蓋範圍、殘餘風險，以及 `testing-artifact/deliverables/TestReport.md` 與 `testing-artifact/handoff/ExecutionSummary.md` 路徑。
 
 ## 憑證與 `.env.playwright` 規則
 
@@ -173,7 +182,6 @@
 # Workflow 執行報告
 
 ## 中繼資料
-- Workflow: workflow-e2e
 - Status: NEW
 - Current Step: Step 0
 - Last Updated: 2026-03-23 00:00
@@ -196,12 +204,12 @@
 ## 產物
 - Handoff Root: testing-artifact/handoff/
 - Deliverables Root: testing-artifact/deliverables/
-- Docs Baseline: testing-artifact/handoff/[WORKFLOW]DocsBaseline.md
-- Site Scan Summary: testing-artifact/handoff/[WORKFLOW]SiteScanSummary.md
+- Docs Baseline: testing-artifact/handoff/DocsBaseline.md
+- Site Scan Summary: testing-artifact/handoff/SiteScanSummary.md
 - Test Plan: testing-artifact/deliverables/TestPlan.md
 - Test Cases: testing-artifact/deliverables/TestCases.md
 - Test Script: testing-artifact/scripts/TestScript.ts
-- Execution Summary: testing-artifact/handoff/[WORKFLOW]ExecutionSummary.md
+- Execution Summary: testing-artifact/handoff/ExecutionSummary.md
 - Test Report: testing-artifact/deliverables/TestReport.md
 
 ## 檢查清單
@@ -224,36 +232,36 @@
 
 ## Handoff 樣板
 
-- `testing-artifact/handoff/[WORKFLOW]InputSummary.md`: 整理 target url、文件路徑、原始碼路徑、Playwright 掃描參數、必填缺漏與選填欄位最終狀態，作為後續步驟輸入基線。
-- `testing-artifact/handoff/[WORKFLOW]DocsBaseline.md`: 整理功能範圍、頁面路由、角色與權限、流程規則、例外流程、測試前置條件與可觀測線索，作為文件基線。
-- `testing-artifact/handoff/[WORKFLOW]SiteScanSummary.md`: 整理實際掃描到的頁面、流程、互動元件、文件差異與可自動化節點，作為站台基線。
-- `testing-artifact/handoff/[WORKFLOW]ExecutionSummary.md`: 整理案例執行結果、失敗摘要與重現線索，作為最終報告輸入。
+- `testing-artifact/handoff/InputSummary.md`: 整理 target url、文件路徑、原始碼路徑、Playwright 掃描參數、必填缺漏與選填欄位最終狀態，作為後續步驟輸入基線。
+- `testing-artifact/handoff/DocsBaseline.md`: 整理功能範圍、頁面路由、角色與權限、流程規則、例外流程、測試前置條件與可觀測線索，作為文件基線。
+- `testing-artifact/handoff/SiteScanSummary.md`: 整理實際掃描到的頁面、流程、互動元件、文件差異與可自動化節點，作為站台基線。
+- `testing-artifact/handoff/ExecutionSummary.md`: 整理案例執行結果、逐項明細、失敗摘要與重現線索，作為最終報告輸入。
 
 ## Deliverables 樣板
 
 - `testing-artifact/deliverables/TestPlan.md`: 測試範圍、假設、風險、資料策略與執行策略。
 - `testing-artifact/deliverables/TestCases.md`: 測試案例清單、分類、來源追溯與驗證點。
 - `testing-artifact/scripts/TestScript.ts`: 對應 case ID 的 Playwright 測試腳本。
-- `testing-artifact/deliverables/TestReport.md`: 最終測試報告、覆蓋情況、風險與建議。
+- `testing-artifact/deliverables/TestReport.md`: 最終測試報告、覆蓋情況、逐項案例結果、風險與建議。
 
 ## 各步驟檔案規則
 
 | Step | 讀取 | 建立/寫入 | 模板 | 備註 |
 | --- | --- | --- | --- | --- |
-| 0 | `testing-artifact/handoff/[WORKFLOW]RunReport.md` | `testing-artifact/handoff/`、`testing-artifact/deliverables/`、`testing-artifact/scripts/`、`testing-artifact/handoff/[WORKFLOW]RunReport.md` | `.opencode/template/[WORKFLOW]RunReport.template.md` | 初始化或續跑入口 |
-| 1-2 | `testing-artifact/handoff/[WORKFLOW]RunReport.md` | `testing-artifact/handoff/[WORKFLOW]InputSummary.md` | `.opencode/template/[WORKFLOW]InputSummary.template.md` | 以一問一答補齊必填欄位，並確認 `source_code_path = value/none`、`playwright_max_depth = value/default(3)`、`playwright_max_pages = value/default(20)`、`playwright_headless = value/default(true)` |
-| 3 | `testing-artifact/handoff/[WORKFLOW]RunReport.md`、`testing-artifact/handoff/[WORKFLOW]InputSummary.md` | `testing-artifact/handoff/[WORKFLOW]DocsBaseline.md` | `.opencode/template/[WORKFLOW]DocsBaseline.template.md` | 必須整理功能、頁面、權限、流程、商業規則、前置條件與測試線索 |
-| 4 | `testing-artifact/handoff/[WORKFLOW]RunReport.md`、`testing-artifact/handoff/[WORKFLOW]InputSummary.md`、`testing-artifact/handoff/[WORKFLOW]DocsBaseline.md` | `testing-artifact/deliverables/.env.playwright`（僅在需要登入且尚未存在時） | `.opencode/template/.env.playwright.template` | 可執行：對 `target_url` 做輕量 Playwright 探測以判定登入需求；若因登入憑證缺失而 `BLOCKED`，恢復執行時必須直接從 Step 4 接續，不得重置已完成的 Step 3 |
-| 5 | `testing-artifact/handoff/[WORKFLOW]RunReport.md`、`testing-artifact/handoff/[WORKFLOW]DocsBaseline.md` | `testing-artifact/handoff/[WORKFLOW]SiteScanSummary.md` | `.opencode/template/[WORKFLOW]SiteScanSummary.template.md` | 必須對照 DocsBaseline，記錄可達頁面、關鍵流程、差異與自動化候選節點 |
-| 6 | `testing-artifact/handoff/[WORKFLOW]RunReport.md`、`testing-artifact/handoff/[WORKFLOW]DocsBaseline.md`、`testing-artifact/handoff/[WORKFLOW]SiteScanSummary.md` | `testing-artifact/deliverables/TestPlan.md`、`testing-artifact/deliverables/TestCases.md`、`testing-artifact/scripts/TestScript.ts` | `.opencode/template/[WORKFLOW]TestPlan.template.md`、`.opencode/template/[WORKFLOW]TestCases.template.md`、`.opencode/template/[WORKFLOW]TestScript.template.ts` | Step 7 的固定輸入來源；案例需有來源追溯，腳本需對應 case ID 與明確 assertion |
-| 7 | `testing-artifact/handoff/[WORKFLOW]RunReport.md`、`testing-artifact/deliverables/TestPlan.md`、`testing-artifact/deliverables/TestCases.md`、`testing-artifact/scripts/TestScript.ts` | `testing-artifact/handoff/[WORKFLOW]ExecutionSummary.md` | `.opencode/template/[WORKFLOW]ExecutionSummary.template.md` | 若需要登入：由 Playwright 在執行時載入 `testing-artifact/deliverables/.env.playwright`，agent 不得讀取其內容；需整理 case ID 層級結果 |
-| 8 | `testing-artifact/handoff/[WORKFLOW]RunReport.md`、`testing-artifact/handoff/[WORKFLOW]ExecutionSummary.md`、`testing-artifact/deliverables/TestPlan.md`、`testing-artifact/deliverables/TestCases.md` | `testing-artifact/deliverables/TestReport.md` | `.opencode/template/[WORKFLOW]TestReport.template.md` | 最終產出報告，需說明已覆蓋、未覆蓋、阻塞範圍與殘餘風險 |
+| 0 | `testing-artifact/handoff/RunReport.md` | `testing-artifact/handoff/`、`testing-artifact/deliverables/`、`testing-artifact/scripts/`、`testing-artifact/handoff/RunReport.md` | `.opencode/template/RunReport.template.md` | 初始化或續跑入口 |
+| 1-2 | `testing-artifact/handoff/RunReport.md` | `testing-artifact/handoff/InputSummary.md` | `.opencode/template/InputSummary.template.md` | 以一問一答補齊必填欄位，並確認 `source_code_path = value/none`、`playwright_max_depth = value/default(3)`、`playwright_max_pages = value/default(20)`、`playwright_headless = value/default(true)` |
+| 3 | `testing-artifact/handoff/RunReport.md`、`testing-artifact/handoff/InputSummary.md` | `testing-artifact/handoff/DocsBaseline.md` | `.opencode/template/DocsBaseline.template.md` | 必須整理功能、頁面、權限、流程、商業規則、前置條件與測試線索 |
+| 4 | `testing-artifact/handoff/RunReport.md`、`testing-artifact/handoff/InputSummary.md`、`testing-artifact/handoff/DocsBaseline.md` | `testing-artifact/deliverables/.env.playwright`（僅在需要登入且尚未存在時） | `.opencode/template/.env.playwright.template` | 可執行：對 `target_url` 做輕量 Playwright 探測以判定登入需求；若因登入憑證缺失而 `BLOCKED`，恢復執行時必須直接從 Step 4 接續，不得重置已完成的 Step 3 |
+| 5 | `testing-artifact/handoff/RunReport.md`、`testing-artifact/handoff/DocsBaseline.md` | `testing-artifact/handoff/SiteScanSummary.md` | `.opencode/template/SiteScanSummary.template.md` | 必須對照 DocsBaseline，記錄可達頁面、關鍵流程、差異與自動化候選節點 |
+| 6 | `testing-artifact/handoff/RunReport.md`、`testing-artifact/handoff/DocsBaseline.md`、`testing-artifact/handoff/SiteScanSummary.md` | `testing-artifact/deliverables/TestPlan.md`、`testing-artifact/deliverables/TestCases.md`、`testing-artifact/scripts/TestScript.ts` | `.opencode/template/[WORKFLOW]TestPlan.template.md`、`.opencode/template/[WORKFLOW]TestCases.template.md`、`.opencode/template/[WORKFLOW]TestScript.template.ts` | Step 7 的固定輸入來源；案例需有來源追溯，腳本需對應 case ID 與明確 assertion |
+| 7 | `testing-artifact/handoff/RunReport.md`、`testing-artifact/deliverables/TestPlan.md`、`testing-artifact/deliverables/TestCases.md`、`testing-artifact/scripts/TestScript.ts` | `testing-artifact/handoff/ExecutionSummary.md` | `.opencode/template/ExecutionSummary.template.md` | 若需要登入：由 Playwright 在執行時載入 `testing-artifact/deliverables/.env.playwright`，agent 不得讀取其內容；需整理 case ID 層級結果與逐項明細 |
+| 8 | `testing-artifact/handoff/RunReport.md`、`testing-artifact/handoff/ExecutionSummary.md`、`testing-artifact/handoff/ExecutionRaw.json`、`testing-artifact/deliverables/TestPlan.md`、`testing-artifact/deliverables/TestCases.md` | `testing-artifact/deliverables/TestReport.md` | `.opencode/template/[WORKFLOW]TestReport.template.md` | 最終產出報告，需說明已覆蓋、未覆蓋、阻塞範圍與殘餘風險，並逐項列出每筆案例結果 |
 
 ## 指令設計
 
 | 指令 | 範圍 | 用途 |
 | --- | --- | --- |
-| `/workflow-e2e` | Step 0-8 | 唯一主控入口；先檢查 `testing-artifact/handoff/[WORKFLOW]RunReport.md`，不存在則用 template 初始化，存在則續跑 |
+| `/workflow-e2e` | Step 0-8 | 唯一主控入口；先檢查 `testing-artifact/handoff/RunReport.md`，不存在則用 template 初始化，存在則續跑 |
 | `/subworkflow-e2e-input` | Step 1-2 | 輸入檢查、補齊缺漏 |
 | `/subworkflow-e2e-docs` | Step 3-4 | 文件整理與登入需求判定 |
 | `/subworkflow-e2e-scan` | Step 5 | 站台掃描與文件差異整理 |
@@ -266,7 +274,7 @@
 ## 建議使用方式
 
 1. 執行 `/workflow-e2e`
-2. 若 workflow 提示 `BLOCKED`，先處理 `testing-artifact/handoff/[WORKFLOW]RunReport.md` 指出的缺失
+2. 若 workflow 提示 `BLOCKED`，先處理 `testing-artifact/handoff/RunReport.md` 指出的缺失
 3. 如為登入需求，先填寫 `testing-artifact/deliverables/.env.playwright`
 4. 補齊後再次執行 `/workflow-e2e`
 
@@ -289,6 +297,6 @@
 - `README.md` 負責說明規則與架構。
 - `commands/*.md` 負責固定 prompt 流程與最低品質門檻。
 - `template/*.md` 與 `template/*.ts` 負責限制 handoff、deliverable 與測試腳本骨架的欄位完整度。
-- `testing-artifact/handoff/[WORKFLOW]RunReport.md` 負責 runtime 狀態持久化與步驟交接。
+- `testing-artifact/handoff/RunReport.md` 負責 runtime 狀態持久化與步驟交接。
 - `testing-artifact/deliverables/` 負責最終交付成果。
 - workflow 每次執行都必須先讀取現況，再決定下一步。

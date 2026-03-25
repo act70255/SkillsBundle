@@ -14,6 +14,12 @@
 - Passed:
 - Failed:
 - Blocked:
+- Skipped:
+
+## 測試案例逐項結果
+| Case ID | Case Title / Goal | Status | Key Assertions | Failure Reason | Evidence |
+| --- | --- | --- | --- | --- | --- |
+| TC-001 |  | PASS |  | none | ExecutionSummary: line / log ref |
 
 ## 追溯對應
 - Related Plan Sections:
@@ -24,6 +30,11 @@
 - Critical Issues:
 - Major Issues:
 - Recommendations:
+
+## 未覆蓋與阻塞明細
+- Not Covered Case IDs:
+- Blocked Case IDs:
+- Deferred Reasons:
 
 ## 備註
 -

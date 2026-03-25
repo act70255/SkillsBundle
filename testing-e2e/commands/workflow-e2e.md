@@ -5,15 +5,15 @@ subtask: true
 
 你是 `testing-e2e` 的主控 workflow agent。
 
-Step 0：先檢查 runtime 狀態檔 `testing-artifact/handoff/[WORKFLOW]RunReport.md` 是否存在。
+Step 0：先檢查 runtime 狀態檔 `testing-artifact/handoff/RunReport.md` 是否存在。
 
-- 若存在，再閱讀 `@testing-artifact/handoff/[WORKFLOW]RunReport.md`。
-- 若不存在，先確認 `testing-artifact/handoff/`、`testing-artifact/deliverables/` 與 `testing-artifact/scripts/` 已建立，再以 `@.opencode/template/[WORKFLOW]RunReport.template.md` 為模板建立 `testing-artifact/handoff/[WORKFLOW]RunReport.md`。
+- 若存在，再閱讀 `@testing-artifact/handoff/RunReport.md`。
+- 若不存在，先確認 `testing-artifact/handoff/`、`testing-artifact/deliverables/` 與 `testing-artifact/scripts/` 已建立，再以 `@.opencode/template/RunReport.template.md` 為模板建立 `testing-artifact/handoff/RunReport.md`。
 
 若檔案不存在：
 
 - 視為新工作。
-- 建立 `testing-artifact/handoff/[WORKFLOW]RunReport.md`。
+- 建立 `testing-artifact/handoff/RunReport.md`。
 - 依照下方標準模板初始化內容。
 
 若檔案存在：
@@ -24,7 +24,7 @@ Step 0：先檢查 runtime 狀態檔 `testing-artifact/handoff/[WORKFLOW]RunRepo
 
 固定流程如下，順序不可變更：
 
-0. 檢查 `testing-artifact/handoff/[WORKFLOW]RunReport.md` 狀態
+0. 檢查 `testing-artifact/handoff/RunReport.md` 狀態
 1. 檢查輸入資訊
 2. 與使用者問答補充輸入資訊
 3. 閱讀文件路徑內的開發文件
@@ -53,15 +53,15 @@ Step 0：先檢查 runtime 狀態檔 `testing-artifact/handoff/[WORKFLOW]RunRepo
 - Step 4 必須先根據 Step 3 的文件結果，再以輕量 Playwright 探測觀察頁面與網路訊號，只有無法明確判定或訊號矛盾時才向使用者確認。
 - Step 4 的輕量 Playwright 探測只負責驗證登入跡象，不可取代 Step 5 的完整掃站。
 - Step 4 的登入跡象至少包含：登入頁 redirect、登入表單、未授權提示、`401/403` 請求、主要內容因未登入而不可見。
-- Step 5 必須以 `testing-artifact/handoff/[WORKFLOW]DocsBaseline.md` 為對照基線，記錄實際入口、可達頁面、阻塞頁面、主流程節點、關鍵互動元件、文件差異與可自動化測試節點。
-- Step 6 必須同時根據 `testing-artifact/handoff/[WORKFLOW]DocsBaseline.md` 與 `testing-artifact/handoff/[WORKFLOW]SiteScanSummary.md` 產出測試計畫、測試案例與測試腳本，不得只依賴單一來源。
+- Step 5 必須以 `testing-artifact/handoff/DocsBaseline.md` 為對照基線，記錄實際入口、可達頁面、阻塞頁面、主流程節點、關鍵互動元件、文件差異與可自動化測試節點。
+- Step 6 必須同時根據 `testing-artifact/handoff/DocsBaseline.md` 與 `testing-artifact/handoff/SiteScanSummary.md` 產出測試計畫、測試案例與測試腳本，不得只依賴單一來源。
 - Step 6 的測試計畫至少要涵蓋測試目標、範圍、排除範圍、假設、風險、資料策略、環境依賴、覆蓋重點與完成定義。
 - Step 6 的測試案例必須逐筆具備來源追溯，至少能對應到文件章節、頁面或流程節點、風險來源之一。
 - Step 6 的測試腳本必須對應 case ID、包含明確 assertion，且不可只保留 `goto` 或 URL smoke check。
 - 每個 critical flow 至少要有 1 筆正向案例；若文件或站台顯示驗證規則、權限限制、條件分支或邊界條件，必須補上對應負向或邊界案例。
 - 若 Step 5 或 Step 7 需要登入，必須由 Playwright 在執行時自行從 `testing-artifact/deliverables/.env.playwright` 載入環境變數；agent 不得讀取或輸出其中內容。
 - 若提問後仍缺必要資訊，或外部條件未滿足，必須：
-  - 更新 `testing-artifact/handoff/[WORKFLOW]RunReport.md`
+  - 更新 `testing-artifact/handoff/RunReport.md`
   - 將 `Status` 設為 `BLOCKED`
   - 在 `Blocking Issues` 中列出缺失
   - 在 `Next Action` 中明確要求使用者處理
@@ -72,6 +72,10 @@ Step 0：先檢查 runtime 狀態檔 `testing-artifact/handoff/[WORKFLOW]RunRepo
   - 將 `Status` 設為 `BLOCKED`
   - 寫入對應 `Blocking Issues` 與 `Next Action`
   - 立即停止
+- 合法停點只允許發生在以下情況：Step 2 一問一答補輸入中、Step 4 登入需求無法明確判定、缺少登入憑證、任一步驟進入 `BLOCKED`、任一步驟進入 `FAILED`、或整體 workflow 已 `DONE`。
+- 若某一步已完成，且 `Status` 不是 `BLOCKED`、`FAILED`、`DONE`，主 workflow 必須依 `Current Step` 立即進入下一步，不得停下等待使用者輸入 `continue`、`確認是否繼續` 或其他批准訊號。
+- 單純的進度回報不可視為停點理由；除非命中合法停點，否則回報後必須直接續跑。
+- 若 workflow 最終進入 `DONE`，回覆中必須直接總結測試結果，不可只回覆流程已完成或僅提供報告檔路徑。
 - 每完成一個步驟：
   - 勾選對應 checklist
   - 更新 `Current Step`
@@ -79,8 +83,9 @@ Step 0：先檢查 runtime 狀態檔 `testing-artifact/handoff/[WORKFLOW]RunRepo
   - 補充 `Notes`
   - 若有產出檔案，更新 `Artifacts`
 - 若子流程內包含多個步驟，完成前一個步驟後必須先寫回 `RunReport`，再進入下一個步驟，以支援中斷後精準續跑。
+- 若子流程只處理單一步驟，完成後控制權必須回到主 workflow，由主 workflow 自動接續下一步，不得把是否繼續交給使用者決定。
 
-`testing-artifact/handoff/[WORKFLOW]RunReport.md` 標準模板如下：
+`testing-artifact/handoff/RunReport.md` 標準模板如下：
 
 ```md
 # Workflow Run Report
@@ -109,12 +114,12 @@ Step 0：先檢查 runtime 狀態檔 `testing-artifact/handoff/[WORKFLOW]RunRepo
 ## Artifacts
 - Handoff Root: testing-artifact/handoff/
 - Deliverables Root: testing-artifact/deliverables/
-- Docs Baseline: testing-artifact/handoff/[WORKFLOW]DocsBaseline.md
-- Site Scan Summary: testing-artifact/handoff/[WORKFLOW]SiteScanSummary.md
+- Docs Baseline: testing-artifact/handoff/DocsBaseline.md
+- Site Scan Summary: testing-artifact/handoff/SiteScanSummary.md
 - Test Plan: testing-artifact/deliverables/TestPlan.md
 - Test Cases: testing-artifact/deliverables/TestCases.md
 - Test Script: testing-artifact/scripts/TestScript.ts
-- Execution Summary: testing-artifact/handoff/[WORKFLOW]ExecutionSummary.md
+- Execution Summary: testing-artifact/handoff/ExecutionSummary.md
 - Test Report: testing-artifact/deliverables/TestReport.md
 
 ## Checklist
@@ -139,5 +144,5 @@ Step 0：先檢查 runtime 狀態檔 `testing-artifact/handoff/[WORKFLOW]RunRepo
 
 1. 先簡述本次從哪個 step 開始執行
 2. 說明已完成或已阻塞的結果
-3. 明確指出 `testing-artifact/handoff/[WORKFLOW]RunReport.md` 更新了哪些欄位
+3. 明確指出 `testing-artifact/handoff/RunReport.md` 更新了哪些欄位
 4. 若阻塞，精準列出使用者下一步要做什麼

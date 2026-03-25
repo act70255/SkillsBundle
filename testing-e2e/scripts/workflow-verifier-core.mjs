@@ -17,11 +17,11 @@ const commandFiles = [
 ];
 
 const templateFiles = [
-  '[WORKFLOW]RunReport.template.md',
-  '[WORKFLOW]InputSummary.template.md',
-  '[WORKFLOW]DocsBaseline.template.md',
-  '[WORKFLOW]SiteScanSummary.template.md',
-  '[WORKFLOW]ExecutionSummary.template.md',
+  'RunReport.template.md',
+  'InputSummary.template.md',
+  'DocsBaseline.template.md',
+  'SiteScanSummary.template.md',
+  'ExecutionSummary.template.md',
   '[WORKFLOW]TestPlan.template.md',
   '[WORKFLOW]TestCases.template.md',
   '[WORKFLOW]TestScript.template.ts',
@@ -42,7 +42,7 @@ const expectedChecklistLines = [
   '- [ ] Step 8 - Generate test report',
 ];
 const expectedFlowLines = [
-  '0. 檢查 `testing-artifact/handoff/[WORKFLOW]RunReport.md` 狀態',
+  '0. 檢查 `testing-artifact/handoff/RunReport.md` 狀態',
   '1. 檢查輸入資訊',
   '2. 與使用者問答補充輸入資訊',
   '3. 閱讀開發文件',
@@ -70,10 +70,10 @@ function getSourcePaths() {
     templateDir: path.join(testingE2eDir, 'template'),
     readme: path.join(testingE2eDir, 'README.md'),
     specMain: path.join(testingE2eDir, 'commands', 'workflow-e2e.md'),
-    runReportTemplate: path.join(testingE2eDir, 'template', '[WORKFLOW]RunReport.template.md'),
-    docsBaselineTemplate: path.join(testingE2eDir, 'template', '[WORKFLOW]DocsBaseline.template.md'),
-    siteScanTemplate: path.join(testingE2eDir, 'template', '[WORKFLOW]SiteScanSummary.template.md'),
-    executionSummaryTemplate: path.join(testingE2eDir, 'template', '[WORKFLOW]ExecutionSummary.template.md'),
+    runReportTemplate: path.join(testingE2eDir, 'template', 'RunReport.template.md'),
+    docsBaselineTemplate: path.join(testingE2eDir, 'template', 'DocsBaseline.template.md'),
+    siteScanTemplate: path.join(testingE2eDir, 'template', 'SiteScanSummary.template.md'),
+    executionSummaryTemplate: path.join(testingE2eDir, 'template', 'ExecutionSummary.template.md'),
     testPlanTemplate: path.join(testingE2eDir, 'template', '[WORKFLOW]TestPlan.template.md'),
     testCasesTemplate: path.join(testingE2eDir, 'template', '[WORKFLOW]TestCases.template.md'),
     testScriptTemplate: path.join(testingE2eDir, 'template', '[WORKFLOW]TestScript.template.ts'),
@@ -87,10 +87,10 @@ function getRuntimePaths() {
     commandDir: path.join(runtimeDir, 'commands'),
     templateDir: path.join(runtimeDir, 'template'),
     specMain: path.join(runtimeDir, 'commands', 'workflow-e2e.md'),
-    runReportTemplate: path.join(runtimeDir, 'template', '[WORKFLOW]RunReport.template.md'),
-    docsBaselineTemplate: path.join(runtimeDir, 'template', '[WORKFLOW]DocsBaseline.template.md'),
-    siteScanTemplate: path.join(runtimeDir, 'template', '[WORKFLOW]SiteScanSummary.template.md'),
-    executionSummaryTemplate: path.join(runtimeDir, 'template', '[WORKFLOW]ExecutionSummary.template.md'),
+    runReportTemplate: path.join(runtimeDir, 'template', 'RunReport.template.md'),
+    docsBaselineTemplate: path.join(runtimeDir, 'template', 'DocsBaseline.template.md'),
+    siteScanTemplate: path.join(runtimeDir, 'template', 'SiteScanSummary.template.md'),
+    executionSummaryTemplate: path.join(runtimeDir, 'template', 'ExecutionSummary.template.md'),
     testPlanTemplate: path.join(runtimeDir, 'template', '[WORKFLOW]TestPlan.template.md'),
     testCasesTemplate: path.join(runtimeDir, 'template', '[WORKFLOW]TestCases.template.md'),
     testScriptTemplate: path.join(runtimeDir, 'template', '[WORKFLOW]TestScript.template.ts'),
@@ -139,9 +139,9 @@ function validateReadme(readmePath, errors) {
 
   const snippets = [
     '## Step 0 規則',
-    '.opencode/template/[WORKFLOW]RunReport.template.md',
+    '.opencode/template/RunReport.template.md',
     '.opencode/template/.env.playwright.template',
-    'testing-artifact/handoff/[WORKFLOW]RunReport.md',
+    'testing-artifact/handoff/RunReport.md',
     'testing-artifact/deliverables/',
     '### 輸入確認規則',
     'Step 2 補齊輸入時必須採用一問一答；一次只問一個欄位。',
@@ -149,16 +149,20 @@ function validateReadme(readmePath, errors) {
     '`playwright_max_depth` 若未提供，必須明確記錄為 `default(3)`。',
     '`playwright_max_pages` 若未提供，必須明確記錄為 `default(20)`。',
     '`playwright_headless` 若未提供，必須明確記錄為 `default(true)`。',
+    '## 續跑與停點規則',
+    'workflow 預設必須連續執行；若某一步完成且狀態不是 `BLOCKED`、`FAILED`、`DONE`，就必須自動接續下一步。',
+    '單純的進度回報不是合法停點；workflow 不得因為某一步完成就等待使用者輸入 `continue`、`確認是否繼續` 或其他批准訊號。',
     '## Step 3 文件基線規則',
     '功能清單、頁面或路由清單、角色與權限矩陣、核心流程、例外流程、商業規則、測試資料或前置條件、環境限制。',
     '## Step 4 規則',
     '先看開發文件，再做輕量 Playwright 探測，最後才向使用者確認',
     '## Step 5 掃站規則',
-    'Step 5 必須拿 `testing-artifact/handoff/[WORKFLOW]DocsBaseline.md` 當對照基線',
+    'Step 5 必須拿 `testing-artifact/handoff/DocsBaseline.md` 當對照基線',
     '## Step 6 測試設計規則',
     '`TestCases` 必須逐筆記錄來源追溯',
     '`TestScript` 必須以 `TestCases` 為唯一正式來源',
     '## Step 7-8 結果追溯規則',
+    '且不可只提供 summary，必須逐項列出每個 case 的結果與證據。',
     '## 憑證與 `.env.playwright` 規則',
     'agent 可以知道憑證檔位置，但不得讀取、展開、轉述或摘要 `.env.playwright` 的實際內容。',
     'node testing-e2e/scripts/verify-workflow-dev.mjs',
@@ -177,11 +181,11 @@ function validateRunReportTemplate(runReportTemplatePath, errors) {
   const text = readText(runReportTemplatePath);
 
   for (const section of expectedRunReportSections) {
-    assertIncludes(text, section, '[WORKFLOW]RunReport.template.md', errors);
+    assertIncludes(text, section, 'RunReport.template.md', errors);
   }
 
   for (const line of expectedChecklistLines) {
-    assertIncludes(text, line, '[WORKFLOW]RunReport.template.md', errors);
+    assertIncludes(text, line, 'RunReport.template.md', errors);
   }
 
   const snippets = [
@@ -193,35 +197,37 @@ function validateRunReportTemplate(runReportTemplatePath, errors) {
     '- Credential Source: testing-artifact/deliverables/.env.playwright',
     '- Handoff Root: testing-artifact/handoff/',
     '- Deliverables Root: testing-artifact/deliverables/',
-    '- Docs Baseline: testing-artifact/handoff/[WORKFLOW]DocsBaseline.md',
-    '- Site Scan Summary: testing-artifact/handoff/[WORKFLOW]SiteScanSummary.md',
+    '- Docs Baseline: testing-artifact/handoff/DocsBaseline.md',
+    '- Site Scan Summary: testing-artifact/handoff/SiteScanSummary.md',
     '- Test Plan: testing-artifact/deliverables/TestPlan.md',
     '- Test Cases: testing-artifact/deliverables/TestCases.md',
     '- Test Script: testing-artifact/scripts/TestScript.ts',
-    '- Execution Summary: testing-artifact/handoff/[WORKFLOW]ExecutionSummary.md',
+    '- Execution Summary: testing-artifact/handoff/ExecutionSummary.md',
     '- Test Report: testing-artifact/deliverables/TestReport.md',
   ];
 
   for (const snippet of snippets) {
-    assertIncludes(text, snippet, '[WORKFLOW]RunReport.template.md', errors);
+    assertIncludes(text, snippet, 'RunReport.template.md', errors);
   }
 }
 
 function validateMainCommand(specMainPath, label, errors) {
   const text = readText(specMainPath);
   const snippets = [
-    'Step 0：先檢查 runtime 狀態檔 `testing-artifact/handoff/[WORKFLOW]RunReport.md` 是否存在。',
-    '- 若存在，再閱讀 `@testing-artifact/handoff/[WORKFLOW]RunReport.md`。',
-    '- 若不存在，先確認 `testing-artifact/handoff/`、`testing-artifact/deliverables/` 與 `testing-artifact/scripts/` 已建立，再以 `@.opencode/template/[WORKFLOW]RunReport.template.md` 為模板建立 `testing-artifact/handoff/[WORKFLOW]RunReport.md`。',
-    '0. 檢查 `testing-artifact/handoff/[WORKFLOW]RunReport.md` 狀態',
+    'Step 0：先檢查 runtime 狀態檔 `testing-artifact/handoff/RunReport.md` 是否存在。',
+    '- 若存在，再閱讀 `@testing-artifact/handoff/RunReport.md`。',
+    '- 若不存在，先確認 `testing-artifact/handoff/`、`testing-artifact/deliverables/` 與 `testing-artifact/scripts/` 已建立，再以 `@.opencode/template/RunReport.template.md` 為模板建立 `testing-artifact/handoff/RunReport.md`。',
+    '0. 檢查 `testing-artifact/handoff/RunReport.md` 狀態',
     '- Step 0 必須先決定是「新工作初始化」或「既有工作續跑」。',
     '- 若缺少資訊，Step 2 必須以一問一答方式逐欄補齊；一次只可確認一個欄位，先問必填，再問選填。',
     '- Step 2 完成前，所有選填欄位都必須明確落成最終狀態：`source_code_path` = 實際值或 `none`；`playwright_max_depth` = 實際值或 `default(3)`；`playwright_max_pages` = 實際值或 `default(20)`；`playwright_headless` = 實際值或 `default(true)`。',
     '- Step 3 必須先完成開發文件閱讀，整理功能清單、頁面或路由清單、登入需求、角色限制、受保護頁面、SSO、核心流程、例外流程、商業規則、前置資料與可觀測測試線索。',
     '- Step 4 必須先根據 Step 3 的文件結果，再以輕量 Playwright 探測觀察頁面與網路訊號，只有無法明確判定或訊號矛盾時才向使用者確認。',
-    '- Step 5 必須以 `testing-artifact/handoff/[WORKFLOW]DocsBaseline.md` 為對照基線',
+    '- Step 5 必須以 `testing-artifact/handoff/DocsBaseline.md` 為對照基線',
     '- Step 6 的測試案例必須逐筆具備來源追溯',
     '- Step 6 的測試腳本必須對應 case ID、包含明確 assertion，且不可只保留 `goto` 或 URL smoke check。',
+    '- 若某一步已完成，且 `Status` 不是 `BLOCKED`、`FAILED`、`DONE`，主 workflow 必須依 `Current Step` 立即進入下一步，不得停下等待使用者輸入 `continue`、`確認是否繼續` 或其他批准訊號。',
+    '- 若子流程只處理單一步驟，完成後控制權必須回到主 workflow，由主 workflow 自動接續下一步，不得把是否繼續交給使用者決定。',
   ];
 
   for (const snippet of snippets) {
@@ -260,8 +266,8 @@ function validateTemplateCatalog(templateDir, rootLabel, errors) {
 function validateTemplateSnippets(paths, errors) {
   const expectations = [
     {
-      filePath: path.join(paths.templateDir, '[WORKFLOW]InputSummary.template.md'),
-      label: '[WORKFLOW]InputSummary.template.md',
+      filePath: path.join(paths.templateDir, 'InputSummary.template.md'),
+      label: 'InputSummary.template.md',
       snippets: [
         '- Source Code Path Value:',
         '- Source Code Path Status: provided | none',
@@ -278,7 +284,7 @@ function validateTemplateSnippets(paths, errors) {
     },
     {
       filePath: paths.docsBaselineTemplate,
-      label: '[WORKFLOW]DocsBaseline.template.md',
+      label: 'DocsBaseline.template.md',
       snippets: [
         '## 功能與頁面盤點',
         '- Feature Inventory:',
@@ -302,9 +308,9 @@ function validateTemplateSnippets(paths, errors) {
     },
     {
       filePath: paths.siteScanTemplate,
-      label: '[WORKFLOW]SiteScanSummary.template.md',
+      label: 'SiteScanSummary.template.md',
       snippets: [
-        '- Baseline Reference: testing-artifact/handoff/[WORKFLOW]DocsBaseline.md',
+        '- Baseline Reference: testing-artifact/handoff/DocsBaseline.md',
         '- Playwright Max Depth Used:',
         '- Playwright Max Pages Used:',
         '- Playwright Headless Used:',
@@ -318,8 +324,14 @@ function validateTemplateSnippets(paths, errors) {
     },
     {
       filePath: paths.executionSummaryTemplate,
-      label: '[WORKFLOW]ExecutionSummary.template.md',
-      snippets: ['- Executed Case IDs:', '- Not Executed Case IDs:'],
+      label: 'ExecutionSummary.template.md',
+      snippets: [
+        '- Executed Case IDs:',
+        '- Not Executed Case IDs:',
+        '- Blocked:',
+        '## 案例逐項結果',
+        '| Case ID | Status | Key Assertions | Error Summary | Evidence |',
+      ],
     },
     {
       filePath: paths.testPlanTemplate,
@@ -366,10 +378,16 @@ function validateTemplateSnippets(paths, errors) {
       label: '[WORKFLOW]TestReport.template.md',
       snippets: [
         '- Blocked Scope:',
+        '- Skipped:',
+        '## 測試案例逐項結果',
+        '| Case ID | Case Title / Goal | Status | Key Assertions | Failure Reason | Evidence |',
         '## 追溯對應',
         '- Related Plan Sections:',
         '- Related Case IDs:',
         '- Document / Scan Gaps:',
+        '## 未覆蓋與阻塞明細',
+        '- Not Covered Case IDs:',
+        '- Blocked Case IDs:',
       ],
     },
   ];
@@ -391,7 +409,7 @@ function validateCommands(paths, errors) {
     }
 
     const text = readText(filePath);
-    assertIncludes(text, 'testing-artifact/handoff/[WORKFLOW]RunReport.md', fileName, errors);
+    assertIncludes(text, 'testing-artifact/handoff/RunReport.md', fileName, errors);
   }
 
   validateMainCommand(paths.specMain, `${path.basename(paths.rootDir)}/commands/workflow-e2e.md`, errors);
@@ -399,14 +417,14 @@ function validateCommands(paths, errors) {
     paths.commandDir,
     'subworkflow-e2e-input.md',
     [
-      '寫入：`testing-artifact/handoff/[WORKFLOW]InputSummary.md`',
+      '寫入：`testing-artifact/handoff/InputSummary.md`',
       'Step 2 必須採用一問一答；一次只可問一個欄位，不可把多個缺漏欄位打包成同一題。',
       '提問順序固定為：先補齊所有必填欄位，再逐一確認選填欄位。',
       '`source_code_path` 若未提供，必須由使用者明確確認為 `none`。',
       '`playwright_max_depth` 若未提供，必須由使用者明確確認為 `default(3)`。',
       '`playwright_max_pages` 若未提供，必須由使用者明確確認為 `default(20)`。',
       '`playwright_headless` 若未提供，必須由使用者明確確認為 `default(true)`。',
-      '在 Step 2 結束前，`testing-artifact/handoff/[WORKFLOW]InputSummary.md` 內不得保留意義不明的空白選填欄位。',
+      '在 Step 2 結束前，`testing-artifact/handoff/InputSummary.md` 內不得保留意義不明的空白選填欄位。',
       '若 1-2 步完成，更新 checklist、`Current Step`、`Notes`、`Last Updated`。',
     ],
     errors,
@@ -415,10 +433,10 @@ function validateCommands(paths, errors) {
     paths.commandDir,
     'subworkflow-e2e-docs.md',
     [
-      '讀取：`testing-artifact/handoff/[WORKFLOW]RunReport.md`、`testing-artifact/handoff/[WORKFLOW]InputSummary.md`',
-      '寫入：`testing-artifact/handoff/[WORKFLOW]DocsBaseline.md`',
+      '讀取：`testing-artifact/handoff/RunReport.md`、`testing-artifact/handoff/InputSummary.md`',
+      '寫入：`testing-artifact/handoff/DocsBaseline.md`',
       'Step 3 的文件整理必須至少涵蓋：功能清單、頁面或路由清單、角色與權限矩陣、核心流程、例外流程、商業規則、測試資料或前置條件、環境限制、可觀測 UI 或 API 線索。',
-      '完成 Step 3 後，必須先更新 `testing-artifact/handoff/[WORKFLOW]RunReport.md`，勾選 Step 3 checklist，並將 `Current Step` 推進到 Step 4，再開始登入判定。',
+      '完成 Step 3 後，必須先更新 `testing-artifact/handoff/RunReport.md`，勾選 Step 3 checklist，並將 `Current Step` 推進到 Step 4，再開始登入判定。',
     ],
     errors,
   );
@@ -426,10 +444,12 @@ function validateCommands(paths, errors) {
     paths.commandDir,
     'subworkflow-e2e-scan.md',
     [
-      '讀取：`testing-artifact/handoff/[WORKFLOW]RunReport.md`、`testing-artifact/handoff/[WORKFLOW]DocsBaseline.md`',
-      '寫入：`testing-artifact/handoff/[WORKFLOW]SiteScanSummary.md`',
+      '讀取：`testing-artifact/handoff/RunReport.md`、`testing-artifact/handoff/DocsBaseline.md`',
+      '寫入：`testing-artifact/handoff/SiteScanSummary.md`',
       'Playwright 必須在執行時自行載入 `testing-artifact/deliverables/.env.playwright`；不得由 agent 先讀取其內容。',
-      '掃描時要以 `testing-artifact/handoff/[WORKFLOW]DocsBaseline.md` 為基線，記錄預期頁面與流程是否真的可達。',
+      '掃描時要以 `testing-artifact/handoff/DocsBaseline.md` 為基線，記錄預期頁面與流程是否真的可達。',
+      'Step 5 若成功完成且未進入 `BLOCKED` 或 `FAILED`，控制權必須回到主 workflow，並由主 workflow 直接進入 Step 6。',
+      '不得在 Step 5 完成後要求使用者輸入 `continue` 或其他批准訊號；只有命中合法停點時才可停止。',
     ],
     errors,
   );
@@ -440,6 +460,8 @@ function validateCommands(paths, errors) {
       '寫入：`testing-artifact/deliverables/TestPlan.md`、`testing-artifact/deliverables/TestCases.md`、`testing-artifact/scripts/TestScript.ts`',
       '測試案例必須逐筆具備來源追溯',
       '測試腳本必須對應 case ID、使用 `test.describe(...)` 組織案例、抽出必要的共用前置步驟，並包含明確 assertion，不可只保留 `goto` 或 URL smoke check。',
+      'Step 6 若成功完成且未進入 `BLOCKED` 或 `FAILED`，控制權必須回到主 workflow，並由主 workflow 直接進入 Step 7。',
+      '不得在 Step 6 完成後要求使用者輸入 `continue` 或其他批准訊號；只有命中合法停點時才可停止。',
     ],
     errors,
   );
@@ -448,15 +470,25 @@ function validateCommands(paths, errors) {
     'subworkflow-e2e-run.md',
     [
       '`testing-artifact/scripts/TestScript.ts` 已存在',
-      '讀取：`testing-artifact/handoff/[WORKFLOW]RunReport.md`、`testing-artifact/deliverables/TestPlan.md`、`testing-artifact/deliverables/TestCases.md`、`testing-artifact/scripts/TestScript.ts`',
+      '讀取：`testing-artifact/handoff/RunReport.md`、`testing-artifact/deliverables/TestPlan.md`、`testing-artifact/deliverables/TestCases.md`、`testing-artifact/scripts/TestScript.ts`',
       '執行後需整理成功、失敗、跳過、主要錯誤原因，並標示對應 case ID。',
+      'Step 7 若成功完成且未進入 `BLOCKED` 或 `FAILED`，控制權必須回到主 workflow，並由主 workflow 直接進入 Step 8。',
+      '不得在 Step 7 完成後要求使用者輸入 `continue` 或其他批准訊號；只有命中合法停點時才可停止。',
     ],
     errors,
   );
   validateCommandFile(
     paths.commandDir,
     'subworkflow-e2e-report.md',
-    ['寫入：`testing-artifact/deliverables/TestReport.md`', '報告需回扣 `TestPlan`、`TestCases` 與 `ExecutionSummary`，保留案例追溯與文件差異造成的風險說明。'],
+    [
+      '寫入：`testing-artifact/deliverables/TestReport.md`',
+      '讀取：`testing-artifact/handoff/RunReport.md`、`testing-artifact/handoff/ExecutionSummary.md`、`testing-artifact/handoff/ExecutionRaw.json`、`testing-artifact/deliverables/TestPlan.md`、`testing-artifact/deliverables/TestCases.md`',
+      '報告需回扣 `TestPlan`、`TestCases` 與 `ExecutionSummary`，保留案例追溯與文件差異造成的風險說明。',
+      '`TestReport.md` 不可只提供 summary；必須新增「測試案例逐項結果」段落',
+      '若 `ExecutionSummary.md` 無法提供完整逐項細節，必須改以 `testing-artifact/handoff/ExecutionRaw.json` 補齊每個 case 的結果，再回填到 `TestReport.md`。',
+      'Step 8 完成後應直接以 `DONE` 結束 workflow，不得再要求使用者輸入 `continue` 或其他批准訊號。',
+      'Step 8 完成並進入 `DONE` 時，回覆必須直接提供測試總結結果，至少包含：整體結果、Passed / Failed / Blocked / Skipped 摘要、主要失敗原因、未覆蓋範圍、殘餘風險，以及 `testing-artifact/deliverables/TestReport.md` 與 `testing-artifact/handoff/ExecutionSummary.md` 路徑。',
+    ],
     errors,
   );
 }
