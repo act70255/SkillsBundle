@@ -17,8 +17,11 @@ subtask: true
 - 寫入：`testing-artifact/handoff/InputSummary.md`
 - 必填：`target_url`、`dev_docs_path`
 - 選填：`source_code_path`、`playwright_max_depth`、`playwright_max_pages`、`playwright_headless`
-- Step 2 必須採用一問一答；一次只可問一個欄位，不可把多個缺漏欄位打包成同一題。
-- 提問順序固定為：先補齊所有必填欄位，再逐一確認選填欄位。
+- Step 2 必須採用一問一答；一次只可問一個欄位。
+- 提問順序固定為：先補齊所有必填欄位，再處理選填欄位。
+- 必填欄位補齊後，先統一說明所有選填欄位與其預設值，並只問一題：「是否需要調整任何選填欄位？」
+- 若使用者回覆不需調整，直接帶入所有選填欄位的預設值/約定值，無需逐欄追問。
+- 若使用者回覆需要調整，僅針對需調整的選填欄位逐一一問一答確認。
 - `source_code_path` 若未提供，必須由使用者明確確認為 `none`。
 - `playwright_max_depth` 若未提供，必須由使用者明確確認為 `default(3)`。
 - `playwright_max_pages` 若未提供，必須由使用者明確確認為 `default(20)`。

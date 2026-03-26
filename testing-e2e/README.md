@@ -23,10 +23,10 @@
 - `.opencode/template/DocsBaseline.template.md`: Step 3 文件基線模板。
 - `.opencode/template/SiteScanSummary.template.md`: Step 5 站台掃描基線模板。
 - `.opencode/template/ExecutionSummary.template.md`: Step 7 執行摘要模板。
-- `.opencode/template/[WORKFLOW]TestScript.template.ts`: Step 6 Playwright 測試腳本模板。
-- `.opencode/template/[WORKFLOW]TestPlan.template.md`: Step 6 測試計畫模板。
-- `.opencode/template/[WORKFLOW]TestCases.template.md`: Step 6 測試案例模板。
-- `.opencode/template/[WORKFLOW]TestReport.template.md`: Step 8 測試報告模板。
+- `.opencode/template/TestScript.template.ts`: Step 6 Playwright 測試腳本模板。
+- `.opencode/template/TestPlan.template.md`: Step 6 測試計畫模板。
+- `.opencode/template/TestCases.template.md`: Step 6 測試案例模板。
+- `.opencode/template/TestReport.template.md`: Step 8 測試報告模板。
 - `.opencode/template/.env.playwright.template`: 目標站台需要登入時，用來產出本次 workflow Playwright 環境檔的模板。
 - `testing-artifact/handoff/RunReport.md`: runtime workflow 狀態檔與交接主檔。
 - `testing-artifact/scripts/`: Playwright 測試腳本集中放置目錄。
@@ -253,9 +253,9 @@
 | 3 | `testing-artifact/handoff/RunReport.md`、`testing-artifact/handoff/InputSummary.md` | `testing-artifact/handoff/DocsBaseline.md` | `.opencode/template/DocsBaseline.template.md` | 必須整理功能、頁面、權限、流程、商業規則、前置條件與測試線索 |
 | 4 | `testing-artifact/handoff/RunReport.md`、`testing-artifact/handoff/InputSummary.md`、`testing-artifact/handoff/DocsBaseline.md` | `testing-artifact/deliverables/.env.playwright`（僅在需要登入且尚未存在時） | `.opencode/template/.env.playwright.template` | 可執行：對 `target_url` 做輕量 Playwright 探測以判定登入需求；若因登入憑證缺失而 `BLOCKED`，恢復執行時必須直接從 Step 4 接續，不得重置已完成的 Step 3 |
 | 5 | `testing-artifact/handoff/RunReport.md`、`testing-artifact/handoff/DocsBaseline.md` | `testing-artifact/handoff/SiteScanSummary.md` | `.opencode/template/SiteScanSummary.template.md` | 必須對照 DocsBaseline，記錄可達頁面、關鍵流程、差異與自動化候選節點 |
-| 6 | `testing-artifact/handoff/RunReport.md`、`testing-artifact/handoff/DocsBaseline.md`、`testing-artifact/handoff/SiteScanSummary.md` | `testing-artifact/deliverables/TestPlan.md`、`testing-artifact/deliverables/TestCases.md`、`testing-artifact/scripts/TestScript.ts` | `.opencode/template/[WORKFLOW]TestPlan.template.md`、`.opencode/template/[WORKFLOW]TestCases.template.md`、`.opencode/template/[WORKFLOW]TestScript.template.ts` | Step 7 的固定輸入來源；案例需有來源追溯，腳本需對應 case ID 與明確 assertion |
+| 6 | `testing-artifact/handoff/RunReport.md`、`testing-artifact/handoff/DocsBaseline.md`、`testing-artifact/handoff/SiteScanSummary.md` | `testing-artifact/deliverables/TestPlan.md`、`testing-artifact/deliverables/TestCases.md`、`testing-artifact/scripts/TestScript.ts` | `.opencode/template/TestPlan.template.md`、`.opencode/template/TestCases.template.md`、`.opencode/template/TestScript.template.ts` | Step 7 的固定輸入來源；案例需有來源追溯，腳本需對應 case ID 與明確 assertion |
 | 7 | `testing-artifact/handoff/RunReport.md`、`testing-artifact/deliverables/TestPlan.md`、`testing-artifact/deliverables/TestCases.md`、`testing-artifact/scripts/TestScript.ts` | `testing-artifact/handoff/ExecutionSummary.md` | `.opencode/template/ExecutionSummary.template.md` | 若需要登入：由 Playwright 在執行時載入 `testing-artifact/deliverables/.env.playwright`，agent 不得讀取其內容；需整理 case ID 層級結果與逐項明細 |
-| 8 | `testing-artifact/handoff/RunReport.md`、`testing-artifact/handoff/ExecutionSummary.md`、`testing-artifact/handoff/ExecutionRaw.json`、`testing-artifact/deliverables/TestPlan.md`、`testing-artifact/deliverables/TestCases.md` | `testing-artifact/deliverables/TestReport.md` | `.opencode/template/[WORKFLOW]TestReport.template.md` | 最終產出報告，需說明已覆蓋、未覆蓋、阻塞範圍與殘餘風險，並逐項列出每筆案例結果 |
+| 8 | `testing-artifact/handoff/RunReport.md`、`testing-artifact/handoff/ExecutionSummary.md`、`testing-artifact/handoff/ExecutionRaw.json`、`testing-artifact/deliverables/TestPlan.md`、`testing-artifact/deliverables/TestCases.md` | `testing-artifact/deliverables/TestReport.md` | `.opencode/template/TestReport.template.md` | 最終產出報告，需說明已覆蓋、未覆蓋、阻塞範圍與殘餘風險，並逐項列出每筆案例結果 |
 
 ## 指令設計
 

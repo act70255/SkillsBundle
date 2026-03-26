@@ -22,10 +22,10 @@ const templateFiles = [
   'DocsBaseline.template.md',
   'SiteScanSummary.template.md',
   'ExecutionSummary.template.md',
-  '[WORKFLOW]TestPlan.template.md',
-  '[WORKFLOW]TestCases.template.md',
-  '[WORKFLOW]TestScript.template.ts',
-  '[WORKFLOW]TestReport.template.md',
+  'TestPlan.template.md',
+  'TestCases.template.md',
+  'TestScript.template.ts',
+  'TestReport.template.md',
   '.env.playwright.template',
 ];
 
@@ -74,10 +74,10 @@ function getSourcePaths() {
     docsBaselineTemplate: path.join(testingE2eDir, 'template', 'DocsBaseline.template.md'),
     siteScanTemplate: path.join(testingE2eDir, 'template', 'SiteScanSummary.template.md'),
     executionSummaryTemplate: path.join(testingE2eDir, 'template', 'ExecutionSummary.template.md'),
-    testPlanTemplate: path.join(testingE2eDir, 'template', '[WORKFLOW]TestPlan.template.md'),
-    testCasesTemplate: path.join(testingE2eDir, 'template', '[WORKFLOW]TestCases.template.md'),
-    testScriptTemplate: path.join(testingE2eDir, 'template', '[WORKFLOW]TestScript.template.ts'),
-    testReportTemplate: path.join(testingE2eDir, 'template', '[WORKFLOW]TestReport.template.md'),
+    testPlanTemplate: path.join(testingE2eDir, 'template', 'TestPlan.template.md'),
+    testCasesTemplate: path.join(testingE2eDir, 'template', 'TestCases.template.md'),
+    testScriptTemplate: path.join(testingE2eDir, 'template', 'TestScript.template.ts'),
+    testReportTemplate: path.join(testingE2eDir, 'template', 'TestReport.template.md'),
   };
 }
 
@@ -91,10 +91,10 @@ function getRuntimePaths() {
     docsBaselineTemplate: path.join(runtimeDir, 'template', 'DocsBaseline.template.md'),
     siteScanTemplate: path.join(runtimeDir, 'template', 'SiteScanSummary.template.md'),
     executionSummaryTemplate: path.join(runtimeDir, 'template', 'ExecutionSummary.template.md'),
-    testPlanTemplate: path.join(runtimeDir, 'template', '[WORKFLOW]TestPlan.template.md'),
-    testCasesTemplate: path.join(runtimeDir, 'template', '[WORKFLOW]TestCases.template.md'),
-    testScriptTemplate: path.join(runtimeDir, 'template', '[WORKFLOW]TestScript.template.ts'),
-    testReportTemplate: path.join(runtimeDir, 'template', '[WORKFLOW]TestReport.template.md'),
+    testPlanTemplate: path.join(runtimeDir, 'template', 'TestPlan.template.md'),
+    testCasesTemplate: path.join(runtimeDir, 'template', 'TestCases.template.md'),
+    testScriptTemplate: path.join(runtimeDir, 'template', 'TestScript.template.ts'),
+    testReportTemplate: path.join(runtimeDir, 'template', 'TestReport.template.md'),
   };
 }
 
@@ -335,7 +335,7 @@ function validateTemplateSnippets(paths, errors) {
     },
     {
       filePath: paths.testPlanTemplate,
-      label: '[WORKFLOW]TestPlan.template.md',
+      label: 'TestPlan.template.md',
       snippets: [
         '## 測試資料與環境依賴',
         '- Test Data Strategy:',
@@ -353,7 +353,7 @@ function validateTemplateSnippets(paths, errors) {
     },
     {
       filePath: paths.testCasesTemplate,
-      label: '[WORKFLOW]TestCases.template.md',
+      label: 'TestCases.template.md',
       snippets: [
         '| Case ID | Source Ref | Flow Type | Preconditions | Steps | Assertions | Expected Result | Priority |',
         '| TC-001 | Docs: / Scan: | happy-path |  |  |  |  | high |',
@@ -362,7 +362,7 @@ function validateTemplateSnippets(paths, errors) {
     },
     {
       filePath: paths.testScriptTemplate,
-      label: '[WORKFLOW]TestScript.template.ts',
+      label: 'TestScript.template.ts',
       snippets: [
         "import { test, expect, type Page } from '@playwright/test';",
         'function getBaseUrl(): string {',
@@ -375,7 +375,7 @@ function validateTemplateSnippets(paths, errors) {
     },
     {
       filePath: paths.testReportTemplate,
-      label: '[WORKFLOW]TestReport.template.md',
+      label: 'TestReport.template.md',
       snippets: [
         '- Blocked Scope:',
         '- Skipped:',
@@ -418,8 +418,11 @@ function validateCommands(paths, errors) {
     'subworkflow-e2e-input.md',
     [
       '寫入：`testing-artifact/handoff/InputSummary.md`',
-      'Step 2 必須採用一問一答；一次只可問一個欄位，不可把多個缺漏欄位打包成同一題。',
-      '提問順序固定為：先補齊所有必填欄位，再逐一確認選填欄位。',
+      'Step 2 必須採用一問一答；一次只可問一個欄位。',
+      '提問順序固定為：先補齊所有必填欄位，再處理選填欄位。',
+      '必填欄位補齊後，先統一說明所有選填欄位與其預設值，並只問一題：「是否需要調整任何選填欄位？」',
+      '若使用者回覆不需調整，直接帶入所有選填欄位的預設值/約定值，無需逐欄追問。',
+      '若使用者回覆需要調整，僅針對需調整的選填欄位逐一一問一答確認。',
       '`source_code_path` 若未提供，必須由使用者明確確認為 `none`。',
       '`playwright_max_depth` 若未提供，必須由使用者明確確認為 `default(3)`。',
       '`playwright_max_pages` 若未提供，必須由使用者明確確認為 `default(20)`。',

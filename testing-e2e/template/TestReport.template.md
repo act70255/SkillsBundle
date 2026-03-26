@@ -17,6 +17,8 @@
 - Skipped:
 
 ## 測試案例逐項結果
+- 請逐筆列出每個測試案例，不可只保留範例列。
+- Status 僅可使用：PASS / FAIL / BLOCKED / SKIPPED。
 | Case ID | Case Title / Goal | Status | Key Assertions | Failure Reason | Evidence |
 | --- | --- | --- | --- | --- | --- |
 | TC-001 |  | PASS |  | none | ExecutionSummary: line / log ref |

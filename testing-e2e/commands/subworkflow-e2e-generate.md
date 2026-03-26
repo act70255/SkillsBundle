@@ -15,9 +15,9 @@ subtask: true
 規則：
 
 - 讀取：`testing-artifact/handoff/RunReport.md`、`testing-artifact/handoff/DocsBaseline.md`、`testing-artifact/handoff/SiteScanSummary.md`
-- 若 `testing-artifact/deliverables/TestPlan.md` 不存在，先用 `@.opencode/template/[WORKFLOW]TestPlan.template.md` 建立。
-- 若 `testing-artifact/deliverables/TestCases.md` 不存在，先用 `@.opencode/template/[WORKFLOW]TestCases.template.md` 建立。
-- 若 `testing-artifact/scripts/TestScript.ts` 不存在，先用 `@.opencode/template/[WORKFLOW]TestScript.template.ts` 建立。
+- 若 `testing-artifact/deliverables/TestPlan.md` 不存在，先用 `@.opencode/template/TestPlan.template.md` 建立。
+- 若 `testing-artifact/deliverables/TestCases.md` 不存在，先用 `@.opencode/template/TestCases.template.md` 建立。
+- 若 `testing-artifact/scripts/TestScript.ts` 不存在，先用 `@.opencode/template/TestScript.template.ts` 建立。
 - 寫入：`testing-artifact/deliverables/TestPlan.md`、`testing-artifact/deliverables/TestCases.md`、`testing-artifact/scripts/TestScript.ts`
 - 缺少必要前提時，更新 `testing-artifact/handoff/RunReport.md` 為 `BLOCKED` 並停止。
 - 測試計畫需涵蓋測試目標、範圍、排除範圍、假設、風險、資料策略、環境依賴、覆蓋重點、執行順序與完成定義。
