@@ -24,6 +24,7 @@
 - Handoff Root: testing-artifact/handoff/
 - Deliverables Root: testing-artifact/deliverables/
 - Docs Baseline: testing-artifact/handoff/DocsBaseline.md
+- Src Scan Summary: testing-artifact/handoff/SrcScanSummary.md
 - Site Scan Summary: testing-artifact/handoff/SiteScanSummary.md
 - Test Plan: testing-artifact/deliverables/TestPlan.md
 - Test Cases: testing-artifact/deliverables/TestCases.md
@@ -36,11 +37,12 @@
 - [ ] Step 1 - Check input information
 - [ ] Step 2 - Ask user to complete missing information
 - [ ] Step 3 - Read development documents
-- [ ] Step 4 - Determine whether login is required
-- [ ] Step 5 - Scan pages with Playwright
-- [ ] Step 6 - Generate test plan, cases, and scripts
-- [ ] Step 7 - Execute test scripts
-- [ ] Step 8 - Generate test report
+- [ ] Step 4 - Scan source code path when provided
+- [ ] Step 5 - Determine whether login is required
+- [ ] Step 6 - Scan pages with Playwright
+- [ ] Step 7 - Generate test plan, cases, and scripts
+- [ ] Step 8 - Execute test scripts
+- [ ] Step 9 - Generate test report
 
 ## 備註
 -

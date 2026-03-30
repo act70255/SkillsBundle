@@ -26,6 +26,7 @@
 
 ## 追溯對應
 - Source Documents:
+- Source Code Scan References:
 - Site Scan References:
 - Covered Risks:
 

@@ -1,7 +1,7 @@
 # 執行摘要
 
 ## 中繼資料
-- Stage: Step 7
+- Stage: Step 8
 - Last Updated:
 
 ## 執行背景

@@ -1,5 +1,5 @@
 ---
-description: Execute Playwright test scripts for the e2e workflow
+description: Execute Playwright test scripts for step 8
 subtask: true
 ---
 
@@ -7,10 +7,10 @@ subtask: true
 
 先閱讀 `@testing-artifact/handoff/RunReport.md`，確認以下前提：
 
-- Step 6 已完成
+- Step 7 已完成
 - `testing-artifact/scripts/TestScript.ts` 已存在
 
-只處理 Step 7：執行測試腳本。
+只處理 Step 8：執行測試腳本。
 
 規則：
 
@@ -22,8 +22,8 @@ subtask: true
 - 若缺少必要登入環境變數，僅記錄缺少的變數名稱或載入失敗狀態，不得讀取或回覆 `.env.playwright` 的實際值。
 - 執行後需整理成功、失敗、跳過、主要錯誤原因，並標示對應 case ID。
 - 完成後更新 checklist、`Current Step`、`Notes`、`Last Updated`。
-- Step 7 若成功完成且未進入 `BLOCKED` 或 `FAILED`，控制權必須回到主 workflow，並由主 workflow 直接進入 Step 8。
-- 不得在 Step 7 完成後要求使用者輸入 `continue` 或其他批准訊號；只有命中合法停點時才可停止。
+- Step 8 若成功完成且未進入 `BLOCKED` 或 `FAILED`，控制權必須回到主 workflow，並由主 workflow 直接進入 Step 9。
+- 不得在 Step 8 完成後要求使用者輸入 `continue` 或其他批准訊號；只有命中合法停點時才可停止。
 
 回覆時請說明：
 
