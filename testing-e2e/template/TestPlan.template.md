@@ -21,6 +21,7 @@
 ## 覆蓋策略
 - Coverage Focus:
 - Flow Coverage Rules:
+- Negative Coverage Requirement: 每個 critical flow 至少 1 筆 negative 或 boundary；若存在權限限制，至少 1 筆 permission。
 - Prioritization:
 - Execution Order:
 

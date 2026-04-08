@@ -157,6 +157,7 @@
 - `TestPlan` 至少要定義：測試目標、範圍、排除範圍、假設、風險、資料策略、環境依賴、覆蓋重點、完成定義。
 - `TestCases` 必須逐筆記錄來源追溯，至少能對應到文件章節、頁面或流程節點、風險來源之一。
 - 每個 critical flow 至少要有 1 筆正向案例；若文件或站台顯示驗證規則、權限限制、條件分支或邊界條件，必須補上對應負向或邊界案例。
+- 若已識別驗證規則、權限限制、條件分支或邊界條件，`negative + boundary + permission` 案例總數不得少於 `happy path` 案例總數；若未識別，仍至少保留 1 筆 negative 或 boundary 案例。
 - `TestScript` 必須以 `TestCases` 為唯一正式來源，測試名稱需對應 case ID，並包含明確 assertion，不可只保留 `goto` 或 URL smoke check。
 - 若文件與掃站結果互相矛盾，必須在 `TestPlan` 與 `TestReport` 中保留風險說明，不得在腳本中自行假設不存在的流程。
 

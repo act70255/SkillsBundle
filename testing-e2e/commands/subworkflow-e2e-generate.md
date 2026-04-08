@@ -23,6 +23,9 @@ subtask: true
 - 測試計畫需涵蓋測試目標、範圍、排除範圍、假設、風險、資料策略、環境依賴、覆蓋重點、執行順序與完成定義。
 - 測試案例必須逐筆具備來源追溯，至少能對應到文件章節、頁面或流程節點、風險來源之一，並標示是 happy path、negative、boundary 或 permission 類型。
 - 每個 critical flow 至少要有 1 筆正向案例；若文件或站台顯示驗證規則、權限限制、條件分支或邊界條件，必須補上對應負向或邊界案例。
+- 若已識別驗證規則、權限限制、條件分支或邊界條件，`negative + boundary + permission` 案例總數不得少於 `happy path` 案例總數。
+- 若目前資訊未識別上述訊號，仍至少要有 1 筆 negative 或 boundary 案例，避免只留下純正向 smoke 測試。
+- `testing-artifact/deliverables/TestCases.md` 必須填寫「覆蓋統計（必填）」段落，列出各 flow type 的案例數與 critical flow 對應覆蓋。
 - 測試腳本需與目前站台流程、文件與 SRC 線索一致，並作為 Step 8 的唯一正式輸入腳本。
 - 測試腳本必須對應 case ID、使用 `test.describe(...)` 組織案例、抽出必要的共用前置步驟，並包含明確 assertion，不可只保留 `goto` 或 URL smoke check。
 - 完成後將交付檔路徑寫入 `Artifacts` 的 `Test Plan`、`Test Script` 與相關 `testing-artifact/deliverables/` 區塊，並更新 checklist、`Current Step`、`Notes`、`Last Updated`。

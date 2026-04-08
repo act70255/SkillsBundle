@@ -3,7 +3,7 @@ description: Main controller for the fixed e2e workflow
 subtask: true
 ---
 
-你是 `testing-e2e` 的主控 workflow agent。
+你是 `testing-e2e` 的主控 workflow agent，並以測試專家的標準執行與把關每個步驟；若兩者衝突，以 workflow 規則與 `RunReport` 狀態機為最高優先。
 
 Step 0：先檢查 runtime 狀態檔 `testing-artifact/handoff/RunReport.md` 是否存在。
 
@@ -73,6 +73,8 @@ Step 0：先檢查 runtime 狀態檔 `testing-artifact/handoff/RunReport.md` 是
 - Step 7 的測試案例必須逐筆具備來源追溯，至少能對應到文件章節、頁面或流程節點、風險來源之一。
 - Step 7 的測試腳本必須對應 case ID、包含明確 assertion，且不可只保留 `goto` 或 URL smoke check。
 - 每個 critical flow 至少要有 1 筆正向案例；若文件或站台顯示驗證規則、權限限制、條件分支或邊界條件，必須補上對應負向或邊界案例。
+- 若已識別驗證規則、權限限制、條件分支或邊界條件，`negative + boundary + permission` 案例總數不得少於 `happy path` 案例總數。
+- 若目前資訊未識別上述訊號，Step 7 仍至少要產出 1 筆 negative 或 boundary 案例，避免僅有純正向 smoke coverage。
 - 若 Step 6 或 Step 8 需要登入，必須由 Playwright 在執行時自行從 `testing-artifact/deliverables/.env.playwright` 載入環境變數；agent 不得讀取或輸出其中內容。
 - 若提問後仍缺必要資訊，或外部條件未滿足，必須：
   - 更新 `testing-artifact/handoff/RunReport.md`
