@@ -21,6 +21,13 @@
 - Env Loaded Keys (Last Check):
 - Env Missing Required Keys (Last Check):
 - Env Validation Status (Last Check): not_checked
+- Step 7 Quality Gate: not_checked
+- Step 7 Review Iterations Used: 0/5
+
+## 證據中繼資料
+- Test Data Identifier(s):
+- App Version / Commit:
+- Verification DoD Status: not_checked
 
 ## 阻塞問題
 - None
@@ -31,8 +38,10 @@
 - Docs Baseline: testing-artifact/handoff/DocsBaseline.md
 - Src Scan Summary: testing-artifact/handoff/SrcScanSummary.md
 - Site Scan Summary: testing-artifact/handoff/SiteScanSummary.md
+- Generation Review: testing-artifact/handoff/GenerationReview.md
 - Test Plan: testing-artifact/deliverables/TestPlan.md
 - Test Cases: testing-artifact/deliverables/TestCases.md
+- Requirement Traceability: testing-artifact/deliverables/RequirementTraceability.md
 - Test Script: testing-artifact/scripts/TestScript.ts
 - Execution Summary: testing-artifact/handoff/ExecutionSummary.md
 - Test Report: testing-artifact/deliverables/TestReport.md

@@ -19,7 +19,9 @@ subtask: true
 - 寫入：`testing-artifact/handoff/SrcScanSummary.md`
 - 若 `source_code_path` 為 `none`，必須在 `SrcScanSummary.md` 明確記錄 skipped 與原因，並仍視為 Step 4 完成。
 - 若 `source_code_path` 有提供，必須掃描並至少整理：路由或頁面對應、角色或權限判斷邏輯、驗證規則、核心流程分支、錯誤處理、測試資料線索、可自動化測試節點。
+- 若 `source_code_path` 有提供，必須額外整理關鍵互動的觸發契約（action contract）：觸發方式（click/hover/type/keyboard）、可互動前置條件（enabled/visible/no overlay/loading done）、穩定 selector、事件綁定限制（例如需 blur/Enter/debounce）。
 - `SrcScanSummary.md` 必須填寫「結果條列」區塊；若有實際掃描，至少列出 3 筆可追溯結果（含 evidence 與 impact）。
+- `SrcScanSummary.md` 必須填寫「互動風險與前置條件」區塊，至少列出 3 筆可能造成 Step 8 觸發失敗的風險（含 evidence 與建議等待訊號）。
 - 掃描結果需盡量對齊 `DocsBaseline.md` 的功能與流程，若發現差異，需記錄在 `SrcScanSummary.md`。
 - 缺少必要前提時，更新 `testing-artifact/handoff/RunReport.md` 為 `BLOCKED` 並停止。
 - 完成後更新 checklist、`Current Step`、`Notes`、`Last Updated`。
