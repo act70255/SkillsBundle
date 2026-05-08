@@ -23,6 +23,7 @@ subtask: true
 - 若 `testing-artifact/handoff/SiteScanSummary.md` 不存在，先用 `@.opencode/template/SiteScanSummary.template.md` 建立。
 - 寫入：`testing-artifact/handoff/SiteScanSummary.md`
 - 缺少必要前提時，更新 `testing-artifact/handoff/RunReport.md` 為 `BLOCKED` 並停止。
+- 若缺少 Playwright 執行依賴或 runtime（例如 `@playwright/test`），不得改以 HTTP probe、純文件比對或其他非 Playwright 手段完成本步驟；必須回寫 `RunReport.md` 為 `BLOCKED` 並停止。
 - 若缺少必要登入環境變數，僅記錄缺少的變數名稱或載入失敗狀態，不得讀取或回覆 `.env.playwright` 的實際值。
 - 掃描時要以 `testing-artifact/handoff/DocsBaseline.md` 為基線，並參考 `testing-artifact/handoff/SrcScanSummary.md`，記錄預期頁面與流程是否真的可達。
 - 掃描時要記錄頁面入口、可達頁面、阻塞頁面、主要流程、關鍵互動、文件差異、可能的測試節點與不穩定因子。

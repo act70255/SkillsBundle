@@ -8,6 +8,10 @@ Handle Step 6 only.
 - SrcScanSummary.md
 - target_url
 
+## Execution guard
+- Before executing Step 6, check if earlier steps have unresolved BLOCKED; if yes, pause and confirm with user.
+- If site scan cannot proceed, first attempt self-check/remediation (target reachability, basic browser/runtime checks, auth loader readiness when required). Only then classify BLOCKED.
+
 ## Required outputs
 - SiteScanSummary.md must include:
   - page-by-page records

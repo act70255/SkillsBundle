@@ -71,6 +71,13 @@ Use this exact startup phrase to avoid missing context:
 ### Pipeline gate policy
 - Entry gate:
   - Step 0 must initialize or validate RunReport before any downstream step.
+- Inter-step BLOCK gate:
+  - Before starting each next step, check whether any prior step is currently `BLOCKED`.
+  - If any `BLOCKED` exists, pause and confirm with user before continuing.
+- Self-remediation first:
+  - Before marking a step/case as `BLOCKED`, first attempt local self-check/remediation when safe.
+  - Typical checks include path/content checks (e.g. grep/file existence), runtime/tooling checks (e.g. npm/node), and dependency install/bootstrap (e.g. npm install).
+  - Only mark `BLOCKED` when self-remediation cannot resolve the issue.
 - Execution gate:
   - Step 8 can run only when case precondition status is `ready`.
   - If `blocked_by_precondition`, case result must be `BLOCKED` (never relabel as `FAIL`).

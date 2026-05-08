@@ -69,6 +69,7 @@ Step 0：先檢查 runtime 狀態檔 `testing-artifact/handoff/RunReport.md` 是
 - Step 4 若有 SRC，必須同步整理關鍵互動的 action contract（觸發方式、前置條件、穩定 selector、事件綁定限制與建議等待訊號），供 Step 7 產生穩定腳本。
 - Step 5 必須先根據 Step 3（文件）與 Step 4（SRC）的結果，再以輕量 Playwright 探測觀察頁面與網路訊號，只有無法明確判定或訊號矛盾時才向使用者確認。
 - Step 5 的輕量 Playwright 探測只負責驗證登入跡象，不可取代 Step 6 的完整掃站。
+- 若缺少 Playwright 執行依賴或 runtime（例如 `@playwright/test`），不得改以 HTTP probe、文件推測或其他非 Playwright 手段宣告 Step 6/Step 8 已完成；必須將 workflow 設為 `BLOCKED`，在 `Blocking Issues` 與 `Next Action` 記錄缺失後停止。
 - Step 5 的登入跡象至少包含：登入頁 redirect、登入表單、未授權提示、`401/403` 請求、主要內容因未登入而不可見。
 - 測試入口 URL 來源為 `RunReport` 的 `Target URL`。
 - 若 Step 5 判定 `Requires Login = true`，主 workflow 必須在 Step 5 內立即呼叫 `/subworkflow-e2e-auth`。

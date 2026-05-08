@@ -24,6 +24,7 @@ subtask: true
 - 若 `testing-artifact/handoff/ExecutionSummary.md` 不存在，先用 `@.opencode/template/ExecutionSummary.template.md` 建立。
 - 寫入：`testing-artifact/handoff/ExecutionSummary.md`
 - 缺少必要前提時，更新 `testing-artifact/handoff/RunReport.md` 為 `BLOCKED` 並停止。
+- 若缺少 Playwright 執行依賴或 runtime（例如 `@playwright/test`），不得改以 HTTP probe、腳本靜態審查或其他非 Playwright 手段宣告案例已執行；必須回寫 `RunReport.md` 為 `BLOCKED` 並停止。
 - 若缺少必要登入環境變數，僅記錄缺少的變數名稱或載入失敗狀態，不得讀取或回覆 `.env.playwright` 的實際值。
 - 執行後需整理成功、失敗、跳過、主要錯誤原因，並標示對應 case ID。
 - 若失敗原因屬互動觸發問題（如 not clickable、element detached、overlay covered、timeout waiting signal），必須在 `ExecutionSummary.md` 明確標示為 interaction-preflight gap，並回寫到 `RunReport Notes` 供下一輪 Step 6/Step 7 補強。

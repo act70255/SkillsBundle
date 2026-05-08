@@ -13,17 +13,26 @@
    - Each case must have `precondition_status = ready | blocked_by_precondition`
    - `blocked_by_precondition` MUST be reported as BLOCKED, never FAIL
 
-3. Spec-first policy:
+3. Self-remediation-first BLOCK policy:
+   - Before writing BLOCKED, agent must try safe, local checks/remediation first.
+   - Examples: search/config checks, file existence checks, runtime/package checks, dependency bootstrap/install.
+   - Only if unresolved after reasonable self-remediation attempts may status become BLOCKED.
+
+4. Inter-step BLOCK stop policy:
+   - Before entering each step, verify whether previous steps contain unresolved BLOCKED items.
+   - If yes, pause and confirm with user before proceeding.
+
+5. Spec-first policy:
    - Documentation/spec is oracle by default
    - If implementation conflicts and cannot be resolved, mark `SPEC_GAP`
    - Never auto-PASS unresolved conflicts
 
-4. RTM mandatory:
+6. RTM mandatory:
    - Requirement/Doc Anchor -> Case ID
    - Case ID -> Requirement/Doc Anchor
    - Coverage state: covered / partial / not-covered
 
-5. DONE evidence gate (all required):
+7. DONE evidence gate (all required):
    - testing-artifact/handoff/ExecutionRaw.json
    - testing-artifact/handoff/ExecutionSummary.md
    - testing-artifact/deliverables/TestReport.md

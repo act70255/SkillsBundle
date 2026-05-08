@@ -4,6 +4,7 @@
 Handle Step 4 only.
 
 ## Rules
+- Before executing Step 4, check if earlier steps have unresolved BLOCKED; if yes, pause and confirm with user.
 - If source_code_path=none: record skipped with reason and still mark Step 4 complete
 - If provided, extract:
   - route/page mappings
@@ -17,6 +18,7 @@ Handle Step 4 only.
   - interactability preconditions
   - stable selectors
   - expected success signal
+- If source scanning cannot proceed, first attempt self-check/remediation (path existence, readable files, basic repo/layout discovery). Only then classify BLOCKED when still unresolved.
 
 ## Output
 - testing-artifact/handoff/SrcScanSummary.md

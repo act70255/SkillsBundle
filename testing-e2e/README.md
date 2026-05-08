@@ -150,6 +150,7 @@
 - Step 5 的登入需求判定順序固定為：先看開發文件，再看 SRC 掃描，再做輕量 Playwright 探測，最後才向使用者確認。
 - 文件與 SRC 判讀需優先確認是否存在登入需求、角色限制、受保護頁面、SSO 或其他授權流程。
 - 輕量 Playwright 探測只用於判定登入需求，不等同 Step 6 的完整掃站。
+- 若缺少 Playwright 執行依賴或 runtime（例如 `@playwright/test`），不得改以 HTTP probe、文件推測或其他非 Playwright 手段視為已完成 Step 6 掃站或 Step 8 測試執行；必須將 workflow 設為 `BLOCKED`，寫明缺失與使用者下一步後停止。
 - 輕量 Playwright 探測至少要檢查以下訊號：
   - 是否被自動導向登入頁或授權頁
   - 是否出現登入表單、登入按鈕或明確登入提示
