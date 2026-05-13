@@ -17,7 +17,7 @@
 - [ ] `RunReport` 狀態欄位與治理規則一致
 - [ ] `Normalization Status` gate 欄位在 RunReport、Step 3、Step 4、output-contract、governance 中一致
 - [ ] `GapReport.md` 產生後的解除路徑（`GapReport.Status = resolved` 更新規則）在 step-2、output-contract、GapReport 模板中一致定義
-- [ ] `TestAssetManifest.md` 表格格式（Script Path / Case IDs / Status）在 step-7、output-contract、evidence-contract、template 中描述一致
+- [ ] `TestAssetManifest.md` 表格格式（Script Path / Case IDs / Covered Functions / Status）在 step-7、output-contract、evidence-contract、template 中描述一致
 - [ ] `Test Env Status` 合法值（`not_checked / passed / blocked`）在 RunReport 模板、Step 1、Step 8、governance 中一致；jQuery/HTML+JS 自動初始化分支（Vitest or Jest）與 `strategy-matrix.md` 描述一致
 - [ ] `test_env` 的 auto-repairable 語意一致：Step 1 不得因其他 required inputs 缺失而延後 auto-setup，Step 2 不得把 `test_env` 當作一般一問一答補件欄位
 - [ ] Step 9 的收尾互動語意一致：先用中文總結；只有在 HTML 報告已產出時才主動詢問是否要用網頁檢視

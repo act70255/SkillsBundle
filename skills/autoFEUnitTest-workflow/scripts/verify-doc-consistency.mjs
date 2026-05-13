@@ -512,10 +512,10 @@ const checks = [
   {
     description: "TestAssetManifest table format aligned across docs",
     ok:
-      step7.includes("表格格式（Script Path / Case IDs / Status）") &&
-      outputContract.includes("Script Path、Case IDs（可追溯至 `TestCases.md`）與 Status") &&
-      evidenceContract.includes("Script Path、Case IDs、Status") &&
-      testAssetManifestTemplate.includes("| Script Path | Case IDs | Status |") &&
+      step7.includes("表格格式（Script Path / Case IDs / Covered Functions / Status）") &&
+      outputContract.includes("Script Path、Case IDs（可追溯至 `TestCases.md`）、Covered Functions 與 Status") &&
+      evidenceContract.includes("Script Path、Case IDs、Covered Functions、Status") &&
+      testAssetManifestTemplate.includes("| Script Path | Case IDs | Covered Functions | Status |") &&
       testAssetManifestTemplate.includes("generated / pending"),
   },
   {
@@ -639,8 +639,8 @@ const checks = [
   {
     description: "invocation-examples recommended startup format matches SKILL.md",
     ok:
-      invocationExamples.includes("/auto-fe-unit-test-workflow <target-path>，依序執行完整 Step 0~9。") &&
-      skill.includes("/auto-fe-unit-test-workflow <target-path>，依序執行完整 Step 0~9。"),
+      invocationExamples.includes("/auto-fe-unit-test-workflow [optional-scope]，依序執行完整 Step 0~9。") &&
+      skill.includes("/auto-fe-unit-test-workflow [optional-scope]，依序執行完整 Step 0~9。"),
   },
   {
     description: "RunReport template includes Test Env Status field",

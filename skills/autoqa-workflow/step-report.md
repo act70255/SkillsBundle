@@ -4,16 +4,16 @@
 Handle Step 9 only.
 
 ## Execution guard
-- Before executing Step 9, check if earlier steps have unresolved BLOCKED; if yes, pause and confirm with user.
+- Before executing Step 9, check if earlier steps have unresolved BLOCKED; if yes, stop progression.
 - If report finalization is blocked by missing evidence, first attempt self-check/remediation (artifact existence check, path correction, regenerate missing summaries if recoverable) before classifying BLOCKED.
 
 ## Inputs
-- RunReport.md
-- ExecutionSummary.md
-- ExecutionRaw.json
-- TestPlan.md
-- TestCases.md
-- RequirementTraceability.md
+- testing-artifact/handoff/RunReport.md
+- testing-artifact/handoff/ExecutionSummary.md
+- testing-artifact/handoff/ExecutionRaw.json
+- testing-artifact/deliverables/TestPlan.md
+- testing-artifact/deliverables/TestCases.md
+- testing-artifact/deliverables/RequirementTraceability.md
 
 ## Output
 - testing-artifact/deliverables/TestReport.md

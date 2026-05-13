@@ -13,7 +13,7 @@ Use this exact startup phrase to avoid missing context:
 `請載入 autoqa-workflow，並執行完整 Step 0~9。`
 
 ## Canonical step flow
-- Step 0: RunReport state check/init
+- Step 0: testing-artifact/handoff/RunReport.md state check/init
 - Step 1: Input validation
 - Step 2: Input completion Q&A
 - Step 3: Docs baseline
@@ -23,6 +23,24 @@ Use this exact startup phrase to avoid missing context:
 - Step 7: Generate TestPlan/TestCases/TestScript/RTM
 - Step 8: Execute tests + precondition gate + non-functional baseline
 - Step 9: Final report + DONE gate
+
+## Controller contract (strict)
+- Step order is fixed: `0 -> 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7 -> 8 -> 9`.
+- Step 0 is mandatory entry. Do not execute downstream steps before Step 0 state check/init.
+- testing-artifact/handoff/RunReport.md is the single source of truth for workflow state and resume.
+- Resume from the first incomplete checklist step. Never reset completed steps.
+- If a step succeeds and status is not `BLOCKED`/`FAILED`/`DONE`, controller must move to next step immediately.
+- Do not request `continue` or any manual approval between normal steps.
+
+### Legal stop points (only)
+- Step 2 one-question-at-a-time input completion in progress
+- Step 5 login requirement remains ambiguous after docs/src/probe
+- Step 5/8 auth gate requires human secrets or permission action
+- any step enters `BLOCKED`
+- any step enters `FAILED`
+- workflow reaches `DONE`
+
+Outside legal stop points, workflow must auto-advance.
 
 ## Pipeline overview (治理流程總覽)
 
@@ -70,14 +88,14 @@ Use this exact startup phrase to avoid missing context:
 
 ### Pipeline gate policy
 - Entry gate:
-  - Step 0 must initialize or validate RunReport before any downstream step.
+  - Step 0 must initialize or validate `testing-artifact/handoff/RunReport.md` before any downstream step.
 - Inter-step BLOCK gate:
   - Before starting each next step, check whether any prior step is currently `BLOCKED`.
-  - If any `BLOCKED` exists, pause and confirm with user before continuing.
+  - If any `BLOCKED` exists, stop and keep current state until blocking issue is resolved.
 - Self-remediation first:
   - Before marking a step/case as `BLOCKED`, first attempt local self-check/remediation when safe.
   - Typical checks include path/content checks (e.g. grep/file existence), runtime/tooling checks (e.g. npm/node), and dependency install/bootstrap (e.g. npm install).
-  - Only mark `BLOCKED` when self-remediation cannot resolve the issue.
+  - Only mark `BLOCKED` when self-remediation cannot resolve the issue, then write blocking issue and next action directly.
 - Execution gate:
   - Step 8 can run only when case precondition status is `ready`.
   - If `blocked_by_precondition`, case result must be `BLOCKED` (never relabel as `FAIL`).

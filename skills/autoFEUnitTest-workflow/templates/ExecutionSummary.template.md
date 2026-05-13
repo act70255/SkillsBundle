@@ -2,6 +2,9 @@
 
 ## 摘要
 - Execution Gate Status:（合法值：not_checked / passed / blocked；不使用 `failed`）
+- Coverage Gate Result: pass / fail
+- Business File Coverage: covered/total
+- Failure Classification: coverage_zero / coverage_gap / assertion_failure / test_runtime_error / blocked_precondition / none
 - Total:
 - Passed:
 - Failed:

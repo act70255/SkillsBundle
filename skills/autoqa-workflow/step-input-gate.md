@@ -15,8 +15,8 @@ Optional:
 - playwright_headless (default: true)
 
 ## Process
-1. Read RunReport.md
-2. If any previous step is BLOCKED, pause and confirm with user before continuing
+1. Read testing-artifact/handoff/RunReport.md
+2. If any previous step is BLOCKED, stop and keep state until blocking issue is resolved
 3. Ensure InputSummary.md exists from template
 4. Validate required fields
 5. For `dev_docs_path`, always ask user to confirm the concrete docs path for this run.
@@ -28,7 +28,7 @@ Optional:
    - explicitly skip source scan for this run
    Do not auto-fill `none (default)` without user confirmation.
 9. For any missing/unavailable input, try self-check first (e.g. path existence, docs/source discovery) before proposing BLOCKED
-10. Write InputSummary.md and RunReport updates
+10. Write testing-artifact/handoff/InputSummary.md and testing-artifact/handoff/RunReport.md updates
 
 ## Exit criteria
 - All required fields populated

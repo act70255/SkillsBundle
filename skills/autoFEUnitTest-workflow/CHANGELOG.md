@@ -38,7 +38,7 @@
 
 ### Changed
 - `GenerationReview.template.md`：`Status` 欄位補 `blocked` 合法值
-- `TestAssetManifest.template.md`：改為表格格式（Script Path / Case IDs / Status）
+- `TestAssetManifest.template.md`：改為表格格式（Script Path / Case IDs / Covered Functions / Status）
 - `RunReport.template.md`：所有 gate 欄位補合法值提示；四個產物狀態欄位（Mock Strategy / Gap Report / Generation Review / Execution Raw）補 `pending / generated / not_applicable` 合法值提示
 - `InputSummary.template.md`：補「不使用 `failed`」說明
 - `workflow/step-7-generate-script.md`：Process 第 4 步補 TestAssetManifest 表格格式指引

@@ -1,9 +1,9 @@
 # Test Asset Manifest
 
 ## 測試腳本
-| Script Path | Case IDs | Status |
-| --- | --- | --- |
-|  | TC-xxx, TC-xxx | generated / pending |
+| Script Path | Case IDs | Covered Functions | Status |
+| --- | --- | --- | --- |
+|  | TC-xxx, TC-xxx | fnA, fnB | generated / pending |
 
 ## Setup 檔
 | File Path | Purpose | Status |

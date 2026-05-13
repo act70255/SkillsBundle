@@ -156,3 +156,25 @@
 3. 回到 Step 6，修正 `TestPlan.md` 與 `TestCases.md`，並將 `Planning Gate Status` 重設為 `not_checked`，再重新執行 Step 6 Process 步驟 5~8
 4. 修正完成後，Step 6 應重新設定 `Planning Gate Status = passed`，`Status` 維持 `IN_PROGRESS`
 5. 注意：`failed` 不等於 `blocked`——`Planning Gate Status = failed` 時，`Status` 應維持 `IN_PROGRESS`，不應設為 `BLOCKED`；若問題實際上是外部資訊缺失（如 `acceptance_rules` 無法確認），應改設為 `Planning Gate Status = blocked` 並走阻塞路徑
+
+## 14. Coverage 指標全為 0%（Statements/Branches/Functions/Lines）
+
+若 `Coverage Status = measured` 且四項 coverage 皆為 `0%`，依治理規則應判定為 `FAILED`（Coverage Zero Gate fail），不是 `BLOCKED`。
+
+建議依以下順序排查：
+
+1. `include/exclude` 設定是否誤排除 source（`include_misconfig`）
+2. 測試是否實際執行（`tests_not_executed`）
+3. 測試是否有觸發目標 function（import/呼叫 + assertion）（`no_target_invocation`）
+4. coverage instrumentation 是否生效（`instrumentation_issue`）
+
+補充高風險訊號：
+
+1. 若測試以 `fs.readFileSync + eval` 或函式片段 `eval` 執行，coverage 常無法歸戶到 source module
+2. 此情況應回到 Step 7，改為 `import`/`require` 載入被測模組後再重跑 Step 8
+
+修復要求：
+
+1. 在 `CoverageSummary.md` 填寫 `Coverage Zero Check`、`Root Cause Category`、`Next Fix Action`
+2. 在 `ExecutionSummary.md` 填寫 `Coverage Gate Result` 與 `Failure Classification = coverage_zero`
+3. 回到 Step 7 修正 Case-to-Function-to-Script 映射，再重跑 Step 8

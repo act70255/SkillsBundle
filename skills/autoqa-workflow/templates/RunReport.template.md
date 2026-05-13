@@ -34,6 +34,7 @@
 
 ## 產物
 - Handoff Root: testing-artifact/handoff/
+- Run Report: testing-artifact/handoff/RunReport.md
 - Deliverables Root: testing-artifact/deliverables/
 - Docs Baseline: testing-artifact/handoff/DocsBaseline.md
 - Src Scan Summary: testing-artifact/handoff/SrcScanSummary.md

@@ -8,6 +8,10 @@
 ## 檢核項目
 - Traceability:
 - Coverage Intent:
+- Function Coverage Gate:
+- Case-to-Function-to-Script Mapping:
+- File-to-Case-to-Script Mapping:
+- Unit Test Execution Method Gate (import/require only):
 - Script Readiness:
 - Mock Completeness:
 

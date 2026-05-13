@@ -3,6 +3,9 @@
 ## Scope
 只處理 Step 0。
 
+## Path convention
+- 本文件提及的檔名皆指 `testing-artifact/` 目錄樹下的標準路徑（以 `project-profile-auto-fe-unit.md` 與 `templates/RunReport.template.md` 為準）。
+
 ## Entry Gate
 - 每次叫用 workflow 時，必須先執行 Step 0
 - 若 `RunReport.md` 不存在，建立新檔（新執行）
@@ -10,6 +13,9 @@
 
 ## Process
 1. 確認 `RunReport.md` 是否存在
+   - 執行根路徑固定為目前工作區（workspace root）；若未提供 `target-path`，不得詢問使用者工作區路徑
+   - 僅當使用者明確提供 scope/path 時，才覆蓋預設工作區範圍
+   - 先確認並建立 `testing-artifact/handoff/`、`testing-artifact/deliverables/`、`testing-artifact/evidence/`、`testing-artifact/scripts/`（若不存在）
 2. 若不存在，依模板建立新檔
 3. 若存在，檢查 `Status`、`Current Step`、產物路徑、產物狀態欄位與檢查清單
 4. 判斷本次為新執行、合法續跑，或需回退重跑的續跑

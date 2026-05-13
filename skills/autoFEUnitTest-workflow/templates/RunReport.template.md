@@ -5,6 +5,9 @@
 - Current Step: Step 0
 - Last Updated:
 - Workflow Mode: unknown
+- Auto Repair Enabled: true
+- Auto Repair Max Attempts: 2
+- Auto Repair Attempt: 0
 
 ## 輸入
 - Source Code Path:

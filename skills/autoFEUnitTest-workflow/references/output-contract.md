@@ -26,6 +26,10 @@
 - 主要產物在完整版 workflow 下都應存在，且在 `DONE` 前不得省略、合併或以摘要取代
 - 條件式產物若不適用，必須在 `RunReport.md` 以 `not_applicable` 明確記錄
 - 各產物至少要保留標題、摘要、依據、風險或狀態欄位
+- `TestCases.md` 必須包含 `Function Coverage Mapping` 區塊；新增/修改 function 需能追溯到至少 1 筆 `Case ID`，未覆蓋者僅允許以 `justified-exception` 保留並附替代證據
+- `TestPlan.md` 必須包含 `File Coverage Matrix` 區塊；每個 in-scope 業務 JS 至少 1 筆案例，高風險檔案至少 2 筆案例
+- `InputSummary.md` 與 `StrategyDecision.md` 需保留 `behavior_spec` / `acceptance_rules` 的來源型態（provided/derived）與推導證據；僅在無法推導或推導衝突時可標記阻塞
+- 所有產物必須落在 workspace 內的 `testing-artifact/` 底下；不得輸出到工作區外或其他平行目錄
 
 ## RunReport 狀態欄位規則
 - `RunReport.md` 應記錄條件式產物與重要治理產物的狀態，例如 `generated`、`not_applicable`、`pending`
@@ -50,7 +54,10 @@
 - `CoverageSummary.md` 應能記錄 `Status = measured / not_applicable`
 - `CoverageSummary.md` 應能記錄 `Coverage HTML Report Path:`
 - `InputSummary.md`、`NormalizedInput.md`、`ClassificationSummary.md`、`TestAssetManifest.md` 同樣屬於 `DONE` 前不可缺少的必要治理產物
-- `TestAssetManifest.md` 應以表格格式呈現，至少包含 Script Path、Case IDs（可追溯至 `TestCases.md`）與 Status 欄位（合法值：`generated` / `pending`）
+- `TestAssetManifest.md` 應以表格格式呈現，至少包含 Script Path、Case IDs（可追溯至 `TestCases.md`）、Covered Functions 與 Status 欄位（合法值：`generated` / `pending`）
+- `TestAssetManifest.md` 的測試腳本表格應額外包含 `Covered Functions` 欄位，用於 Step 7/Step 8 的 Case-to-Function-to-Script 與 coverage 交叉檢核
+- `CoverageSummary.md` 應包含 `Coverage Zero Gate`（`Coverage Zero Check`、`Root Cause Category`、`Next Fix Action`）；若 `Coverage Status = measured` 且四項 coverage 全為 `0%`，Step 8 最終狀態不得視為成功
+- `CoverageSummary.md` 應包含 `Uncovered Business Files` 區塊；若任一 in-scope 業務 JS 為 `Statements = 0%` 且 `Branches = 0%`，Step 8 最終狀態應為 `FAILED`
 
 ## 條件式模板對應
 - `templates/MockStrategy.template.md`

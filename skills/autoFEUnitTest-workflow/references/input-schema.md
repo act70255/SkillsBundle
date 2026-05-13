@@ -5,6 +5,7 @@
 - `project_config`
 - `framework_type`
 - `test_targets`
+- `exclude_globs`
 - `behavior_spec`
 - `test_env`
 - `external_dependencies`
@@ -25,7 +26,8 @@
 - `source_code`: Required
 - `project_config`: Required
 - `test_targets`: Required
-- `behavior_spec`: Required
+- `exclude_globs`: Governed Required（預設排除第三方與壓縮檔，可由使用者覆寫）
+- `behavior_spec`: Required unless derivable（可由既有證據推導時可不阻塞）
 - `framework_type`: Governed Required
 - `acceptance_rules`: Governed Required
 - `test_env`: Governed Required（由 Step 1 自動偵測與初始化；若自動初始化失敗才升為 `missing_blocking`）
@@ -33,14 +35,32 @@
 - 其餘為 Optional
 
 ## 輸入責任模型
-- `user_required`：`source_code`、`project_config`、`test_targets`、`behavior_spec`
-- `governed_derived`：`framework_type`、`acceptance_rules`
+- `user_required`：`source_code`、`project_config`、`test_targets`
+- `user_required_unless_derivable`：`behavior_spec`
+- `governed_derived`：`framework_type`、`acceptance_rules`、`exclude_globs`
 - `governed_auto_repairable`：`test_env`
 
 補充規則：
 - `user_required` 由使用者或外部文件直接提供；若缺失，Step 2 採一問一答補件
+- `user_required_unless_derivable` 欄位（`behavior_spec`）應先嘗試推導；僅在推導失敗且無可信證據時，才進入 Step 2 一問一答補件
 - `governed_derived` 由 workflow 依既有證據推導；若推導來源不足，可在 Step 2 要求使用者補充更直接的依據
 - `governed_auto_repairable` 由 Step 1 自動偵測與嘗試修復；不得因其他 required inputs 缺失而延後執行
+- 路徑預設規則：若未提供 `target-path` / scope，workflow 以 workspace root 作為 `source_code` 預設值（`defaulted`），不得在 Step 0 詢問工作區路徑
+- `project_config` 若未直接提供，Step 1 應先在 workspace root 自動掃描常見設定檔並標記為 `derived`；僅在掃描失敗時才列入補件
+- `test_targets` 預設規則：若未提供，Step 1 須自動設定為 `src/static/js/**/*.js` 並標記為 `defaulted`
+- `exclude_globs` 預設規則：若未提供，Step 1 須自動設定為 `**/*.min.js`、`**/*polyfill*.js`、`**/jquery*.js`、`**/moment*.js`、`**/konva*.js`，並標記為 `defaulted`
+
+## 推導來源白名單（behavior_spec / acceptance_rules）
+- `source_code`（函式責任、模組註解、型別契約、驗證邏輯、錯誤處理）
+- `existing_tests`（既有測試案例、斷言、測試命名）
+- `known_risks`（已知風險、邊界條件）
+- bug records / issue tickets
+- docs / comments / ADR / README
+
+推導規則：
+- 推導結果必須可追溯到上述來源之一，並在 `InputSummary.md` 記錄證據路徑
+- 若推導來源存在衝突，Step 1 應標記為 `missing_blocking`，交由 Step 2 補件釐清
+- 若無可用來源或來源不足，Step 1 應標記為 `missing_blocking`
 
 ## Governed Required 解析規則
 - `framework_type` 可由 `source_code`、`project_config` 或既有測試工具推導，但必須在 Step 4 結束前確定；若 Step 4 仍無法確認，流程必須停在 `BLOCKED`

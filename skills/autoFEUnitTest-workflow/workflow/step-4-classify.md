@@ -3,6 +3,9 @@
 ## Scope
 只處理 Step 4。
 
+## Path convention
+- 本文件提及的檔名皆指 `testing-artifact/` 目錄樹下的標準路徑（例如 `testing-artifact/handoff/ClassificationSummary.md`）。
+
 ## Entry Gate
 - 必須確認 `RunReport.md` 中 `Normalization Status = passed`，才可開始分類
 - 若 `Normalization Status ≠ passed`，不得執行 Step 4；應回退到 Step 3 重跑正規化，並在 `RunReport.md` 更新阻塞原因

@@ -102,7 +102,7 @@ source_code_path: ./src
 
 | Step | 內容 | 產出 |
 |------|------|------|
-| 0 | RunReport 初始化 / 狀態確認 | `RunReport.md` |
+| 0 | RunReport 初始化 / 狀態確認 | `testing-artifact/handoff/RunReport.md` |
 | 1-2 | 輸入驗證 + 補問 | `InputSummary.md` |
 | 3 | Docs baseline 建立 | `DocsBaseline.md` |
 | 4 | Source code 掃描（可 skip） | `SrcScanSummary.md` |
@@ -123,6 +123,7 @@ testing-artifact/
 │   ├── TestReport.md
 │   └── RequirementTraceability.md
 ├── handoff/
+│   ├── RunReport.md
 │   ├── InputSummary.md
 │   ├── DocsBaseline.md
 │   ├── SrcScanSummary.md

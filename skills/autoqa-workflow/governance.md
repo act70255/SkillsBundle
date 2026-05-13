@@ -20,7 +20,7 @@
 
 4. Inter-step BLOCK stop policy:
    - Before entering each step, verify whether previous steps contain unresolved BLOCKED items.
-   - If yes, pause and confirm with user before proceeding.
+   - If yes, stop progression and keep workflow at current legal state.
 
 5. Spec-first policy:
    - Documentation/spec is oracle by default

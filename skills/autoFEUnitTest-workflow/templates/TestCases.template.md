@@ -5,6 +5,11 @@
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | TC-001 |  |  |  |  |  |  |  |
 
+## Function Coverage Mapping（必填）
+| Function | Module/File | Change Type (new/modified/existing) | Related Case IDs | Coverage Status (covered/justified-exception) | Evidence |
+| --- | --- | --- | --- | --- | --- |
+|  |  |  | TC- | covered |  |
+
 ## 未覆蓋項目
 -
 

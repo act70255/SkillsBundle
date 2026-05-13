@@ -39,5 +39,7 @@
 1. If any high severity gap remains open -> fail
 2. If required artifacts missing -> fail
 3. If RTM not bidirectional -> fail
-4. If non-happy coverage rule violated (when applicable) -> fail
-5. Otherwise -> pass
+4. If case-to-source traceability is incomplete -> fail
+5. If non-happy coverage rule violated (when applicable) -> fail
+6. If script assertions or case-ID mapping are incomplete -> fail
+7. Otherwise -> pass

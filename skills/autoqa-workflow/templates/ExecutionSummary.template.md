@@ -29,10 +29,6 @@
 - SKIPPED: 策略性未執行（非障礙）
 
 ## 案例逐項結果
-| Case ID | Status | Key Assertions | Error Summary | Evidence |
-| --- | --- | --- | --- | --- |
-| TC-001 | PASS |  | none | console/log ref |
-
 | Case ID | Status | Precondition Status | Key Assertions | Error Summary | Evidence |
 | --- | --- | --- | --- | --- | --- |
 | TC-001 | PASS | ready |  | none | console/log ref |

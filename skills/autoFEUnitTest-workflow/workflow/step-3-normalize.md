@@ -3,6 +3,9 @@
 ## Scope
 只處理 Step 3。
 
+## Path convention
+- 本文件提及的檔名皆指 `testing-artifact/` 目錄樹下的標準路徑（例如 `testing-artifact/handoff/NormalizedInput.md`）。
+
 ## Entry Gate
 - 必須確認 `Input Validation Status = passed` 且 `Missing Required Inputs` 已清空，才可開始正規化
 - 若 `Input Validation Status = blocked`，不得執行 Step 3：

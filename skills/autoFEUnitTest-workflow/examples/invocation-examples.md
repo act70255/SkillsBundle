@@ -2,10 +2,10 @@
 
 ## 建議啟動格式
 
-為確保 workflow 完整執行 Step 0~9，建議在路徑後附加明確指示：
+為確保 workflow 完整執行 Step 0~9，建議附加明確指示（scope 可選）：
 
 ```text
-/auto-fe-unit-test-workflow <target-path>，依序執行完整 Step 0~9。
+/auto-fe-unit-test-workflow [optional-scope]，依序執行完整 Step 0~9。
 ```
 
 ## 基本叫用

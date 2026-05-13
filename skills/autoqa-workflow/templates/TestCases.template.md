@@ -2,11 +2,6 @@
 
 ## 案例清單
 
-| Case ID | Source Ref | Flow Type | Preconditions | Steps | Assertions | Expected Result | Priority |
-| --- | --- | --- | --- | --- | --- | --- | --- |
-| TC-001 | Docs: / Scan: | happy-path |  |  |  |  | high |
-| TC-002 | Docs: / Scan: | negative |  |  |  |  | high |
-
 | Case ID | Requirement ID / Doc Anchor | Source Ref | Flow Type | Preconditions | Steps | Assertions | Expected Result | Priority |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | TC-001 | REQ-001 / docs#section-x | Docs: / Scan: | happy-path |  |  |  |  | high |

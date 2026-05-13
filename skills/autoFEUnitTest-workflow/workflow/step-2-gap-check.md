@@ -3,6 +3,9 @@
 ## Scope
 只處理 Step 2 的補件與阻塞分流。
 
+## Path convention
+- 本文件提及的檔名皆指 `testing-artifact/` 目錄樹下的標準路徑（例如 `testing-artifact/handoff/RunReport.md`、`testing-artifact/handoff/GapReport.md`）。
+
 ## Entry Gate
 - 必須確認 `RunReport.md` 中 `Input Validation Status = blocked` 才可進入補件；`Missing Required Inputs` 必須由 Step 1 寫入且非空（依 Step 1 完整性約束，若 `Input Validation Status = blocked` 但 `Missing Required Inputs` 為空，屬 Step 1 執行異常，Step 2 不得繼續補件；此情況下 Step 2 應在 `RunReport.md` 的 `阻塞問題` 記錄此異常，並將 `Current Step` 倒退至 Step 1（Step 2 有授權進行此倒退，見 `governance.md` Section 3），重跑 Step 1 修正異常後再進入 Step 2）
 - 若 `Input Validation Status = passed`，不需要執行 Step 2；應繼續進入 Step 3
@@ -11,9 +14,9 @@
 1. 讀取 `InputSummary.md` 與 `RunReport.md`
 2. 找出 `missing_blocking` 欄位，並對照 `RunReport.md` 的 `Missing Required Inputs`
 3. 將缺口分流為兩類：
-   - 使用者補件型：`project_config`、`test_targets`、`behavior_spec`，以及缺少直接依據時需要使用者補充的 `framework_type` / `acceptance_rules`
+   - 使用者補件型：`project_config`、`test_targets`、`behavior_spec`（僅在 Step 1 推導失敗時），以及缺少直接依據時需要使用者補充的 `framework_type` / `acceptance_rules`
    - 環境阻塞型：`test_env`
-4. 僅對使用者補件型缺口採用一問一答方式補件
+4. 僅對使用者補件型缺口採用一問一答方式補件；提問前需確認 Step 1 已記錄推導嘗試與失敗原因
 5. 若存在 `test_env`，不得把 `test_env` 當作一般一問一答補件欄位；應標記為 `env_blocker`，記錄 Step 1 自動初始化失敗摘要、建議人工修復步驟，以及回到 Step 1 重跑的條件
 6. 補件或分流後回寫 `InputSummary.md`，並同步更新 `Missing Required Inputs`（僅更新仍存在的缺失欄位；若所有缺口均已補完，`Missing Required Inputs` 不主動清空，待 Step 1 重跑時清空）
 7. 若核心輸入仍缺失，或 `test_env` 仍處於 `env_blocker`，產出 `GapReport.md`

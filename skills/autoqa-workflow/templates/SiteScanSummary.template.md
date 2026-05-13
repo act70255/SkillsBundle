@@ -30,10 +30,12 @@
 - Critical UI Elements:
 - Document Mismatches:
 
-## 互動前置檢查結果
-| Interaction ID | Page / Route | Trigger | Preconditions | Success Signal | Suggested Wait Strategy | Stable Selector(s) | Risk |
-| --- | --- | --- | --- | --- | --- | --- | --- |
-| IP-001 |  | click/type | visible+enabled+no overlay | URL/DOM/API/Toast | waitForURL / locator wait |  |  |
+## Interaction Preflight（互動前置檢查結果）
+| Interaction ID | Page / Route | Trigger | Preconditions | Blocking Factor | Success Signal | Suggested Wait Strategy | Suggested Selector | Risk |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| IP-001 |  | click/type | visible+enabled+no overlay | animation/overlay/loading/debounce | URL/DOM/API/Toast | waitForURL / locator wait |  | high |
+| IP-002 |  |  |  |  |  |  |  | medium |
+| IP-003 |  |  |  |  |  |  |  | low |
 
 ## Compatibility / A11y mini-sweep
 - Viewports Used: desktop= ; mobile/tablet=

@@ -4,7 +4,7 @@
 Only callable from Step 5 or Step 8 when Requires Login=true.
 
 ## Fixed order
-0. Check unresolved BLOCKED from prior steps; if exists, pause and confirm with user before proceeding.
+0. Check unresolved BLOCKED from prior steps; if exists, stop progression.
 1. Ensure credential file exists:
    - testing-artifact/deliverables/.env.playwright
 2. Ensure loader exists:
@@ -18,7 +18,7 @@ Only callable from Step 5 or Step 8 when Requires Login=true.
   - verify file/path existence and expected location
   - verify node/npm runtime availability
   - bootstrap dependencies when missing (e.g. npm install) if project-local and safe
-- If still unresolved, then propose BLOCKED and wait for user confirmation.
+ - If still unresolved, write BLOCKED directly with blocking issue and next action.
 
 ## Secret-missing handling (requires human intervention)
 - When login is required and `.env.playwright` is missing or required secret keys are empty/missing:
@@ -26,7 +26,7 @@ Only callable from Step 5 or Step 8 when Requires Login=true.
   2. Do not fabricate or auto-fill secret values.
   3. Mark status as BLOCKED (human input required).
   4. Ask user to fill secret values and reply when done.
-  5. After user confirmation, rerun env validation and continue.
+  5. After user fills secrets, rerun env validation and continue.
 
 ## Security rule
 - Never print secret values from .env.playwright
@@ -38,9 +38,9 @@ Only callable from Step 5 or Step 8 when Requires Login=true.
 - Env Validation Status (Last Check)
 
 ## Failure handling
-- missing key -> propose BLOCKED with missing key names, then pause and confirm with user before final writeback
-- key complete but login unavailable -> propose BLOCKED as credential/permission/auth-flow issue, then pause and confirm with user before final writeback
-- preserve caller step ownership (stay Step 5 or Step 8)
+- missing key -> write BLOCKED with missing key names and required user action
+- key complete but login unavailable -> write BLOCKED as credential/permission/auth-flow issue
+- preserve caller step ownership (stay Step 5 or Step 8); never auto-advance step index
 
 ## Skill-local resources
 - Loader/env template source: `<skills_root>/autoqa-workflow/templates/.env.playwright.template` and `<skills_root>/autoqa-workflow/templates/PlaywrightEnvLoader.template.cjs`

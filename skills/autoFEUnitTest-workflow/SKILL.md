@@ -1,8 +1,8 @@
 ---
-name: auto-fe-unit-test-workflow
+name: autoEFUnitTest-workflow
 description: 前端單元測試治理型工作流，適用於 React、Vue、HTML+JS、jQuery。用於檢核輸入完整性、分類技術棧、決定測試策略、產出測試計畫與腳本、執行測試並彙整有證據的最終報告。
 disable-model-invocation: true
-argument-hint: [target-path or scope]
+argument-hint: [optional scope]
 ---
 
 # Auto FE Unit Test Workflow
@@ -28,7 +28,7 @@ argument-hint: [target-path or scope]
 ## Recommended startup instruction
 建議使用以下啟動語句：
 
-`/auto-fe-unit-test-workflow <target-path>，依序執行完整 Step 0~9。`
+`/auto-fe-unit-test-workflow [optional-scope]，依序執行完整 Step 0~9。`
 
 ## Canonical step flow
 - Step 0: RunReport 初始化/續跑檢查
@@ -44,6 +44,8 @@ argument-hint: [target-path or scope]
 
 ## Pipeline overview
 - 先建立或讀取 `RunReport.md`
+- 若未提供 `target-path`，預設以目前工作區（workspace root）作為執行路徑，禁止在 Step 0 詢問工作區路徑
+- 所有產物、證據與腳本輸出皆限制於 workspace 內 `testing-artifact/` 目錄樹
 - Step 1 先驗證輸入，並優先完成 `test_env` 自動偵測 / 初始化，再進入補件、分類與策略決策
 - 沒有充分證據時，不得直接產生腳本或宣告完成
 - 所有重要結論都必須留有明確產物與證據路徑
@@ -60,10 +62,18 @@ argument-hint: [target-path or scope]
   - 分類依據不足時，不得進入 Step 5 之後
 - Planning gate:
   - `acceptance_rules` 未解析完成，或測試案例無法追溯到規格、風險或 bug 時，不得進入 Step 7
+  - 預設測試目標採 `src/static/js/**/*.js` 全量業務 JS；第三方/壓縮檔以 `exclude_globs` 排除，且每個 in-scope 業務 JS 需有對應案例與腳本映射
 - Script generation gate (Script Generation Gate):
     - 僅 `Script Generation Gate = passed` 時可進入 Step 8；若為 `failed` 或 `blocked`，不得進入執行
+- Unit test execution method gate:
+  - 單元測試必須以測試 runner 的模組載入機制（`import`/`require`）執行被測程式
+  - 禁止以 `fs.readFileSync + eval`、字串拼接執行或函式片段 `eval` 作為正式單元測試方法
+  - coverage 證據只接受可追溯到實體 source module 的結果
 - Execution gate:
   - 前置條件不成立時，結果必須為 `BLOCKED`，不得標記為 `failed`
+- Auto repair gate:
+  - Step 8 若為可內部修復的 `FAILED`（斷言/覆蓋缺口），應優先啟動修復導向續跑（回 Step 6/7）再嘗試下一輪執行
+  - 僅在達到最大嘗試次數或屬外部阻塞時，才保留最終 `FAILED`/`BLOCKED`
 - Done gate:
   - 只有在必要產物齊全、狀態一致、證據鏈完整時，才能標記為 `DONE`
   - 若 DONE gate 未通過，最終狀態必須依治理規則落在 `BLOCKED`、`FAILED` 或 `IN_PROGRESS`
@@ -129,3 +139,4 @@ argument-hint: [target-path or scope]
 - `project-profile-auto-fe-unit.md` 只定義專案預設，不得覆蓋治理語意
 - `workflow/*` 負責執行順序與 gate，不得任意跳步
 - `templates/*` 定義標準產物骨架，產出時不得省略必要欄位
+- 在 `workflow/*`、報告與回覆中提及產物時，優先使用 `testing-artifact/...` 完整路徑表示

@@ -43,8 +43,15 @@
    - `not_applicable` = 經 workflow 判定後不適用
 
 6. 證據優先規則：
-   - 分類、策略、案例、執行結論都要有證據來源
-   - 無證據只能列為假設，不得列為完成結果
+     - 分類、策略、案例、執行結論都要有證據來源
+     - 無證據只能列為假設，不得列為完成結果
+     - 證據與產物路徑必須位於 workspace 內 `testing-artifact/` 目錄樹
+     - 在流程說明、報告與回覆中提及產物時，應優先使用完整標準路徑（例如 `testing-artifact/handoff/RunReport.md`），避免僅寫裸檔名造成歧義
+
+6.1 業務 JS 範圍完整性規則：
+     - 除非有明確 `defer` 或 `out-of-scope` 理由，所有 in-scope 自家業務 JS 都必須納入測試範圍
+     - 第三方套件、壓縮檔與 polyfill 可排除，但必須由 `exclude_globs` 明確定義
+     - 若存在未覆蓋業務 JS 且無合法豁免，Step 5 應 `blocked`；Step 8 應 `FAILED`
 
 7. 完成 gate 規則：
     - `RunReport.md`
@@ -83,7 +90,7 @@
    - Step 6 若 `acceptance_rules`、策略依據或案例追溯依據不足而無法合法定稿，`Planning Gate Status` 應為 `blocked`，且 `Status` 應為 `BLOCKED`
    - Step 6 若測試計畫已起草但案例追溯、範圍界線或驗收對應仍需內部修正，`Planning Gate Status` 應為 `failed`，且 `Status` 應維持 `IN_PROGRESS`（前提：`Status` 此前已為 `IN_PROGRESS` 而非 `BLOCKED`）
    - Step 7 的品質 gate 欄位為 `Script Generation Gate`（合法值：`not_checked` / `passed` / `failed` / `blocked`）；若腳本品質未通過（`Script Generation Gate = failed`）但可持續修正，`Status` 應維持 `IN_PROGRESS`；若因外部原因導致無法繼續，`Script Generation Gate = blocked`，`Status` 應為 `BLOCKED`
-    - Step 8 正常完成（前置條件成立且執行完畢）時，`Execution Gate = passed`，`Status` 應為 `IN_PROGRESS`；前置條件不成立且阻塞處理完成時，`Execution Gate = blocked`，`Status` 應為 `BLOCKED`；若前置條件成立但必要 HTML 報告無法合法產出，`Execution Gate` 亦應為 `blocked`，`Status` 應為 `BLOCKED`，且 `Current Step` 應停留在 Step 8
+   - Step 8 正常完成（前置條件成立且執行完畢）時，`Execution Gate = passed`，`Status` 應為 `IN_PROGRESS`；前置條件不成立且阻塞處理完成時，`Execution Gate = blocked`，`Status` 應為 `BLOCKED`；若前置條件成立但必要 HTML 報告無法合法產出，`Execution Gate` 亦應為 `blocked`，`Status` 應為 `BLOCKED`，且 `Current Step` 應停留在 Step 8；若 `Coverage Status = measured` 且四項 coverage 全為 `0%`，`Status` 應為 `FAILED`（Coverage Zero Gate fail），不得視為成功
    - Step 9 若 DoD 不通過且屬外部阻塞，`Status` 應為 `BLOCKED`
    - Step 9 若 DoD 不通過但問題屬於結果不符合驗收規則，`Status` 應為 `FAILED`
    - Step 9 若 DoD 未通過但尚有可內部整理工作且不屬於外部阻塞，`Status` 應為 `IN_PROGRESS`
@@ -96,7 +103,17 @@
     - 若 `framework_type` 尚未確定，使用最小集合（`vitest jsdom`）並在 `RunReport.md` 備註
     - 自動初始化成功時，必須記錄 `Test Env Status = passed`；失敗時記錄 `Test Env Status = blocked` 並列入 `missing_blocking`
     - Step 2 不負責重新選擇 runner、安裝依賴或驗證 `test_env` 是否恢復；Step 2 只記錄修復路徑，實際驗證仍由 Step 1 重跑負責
-    - 前置條件不成立（`Test Env Status ≠ passed`）時，Step 8 不得執行測試，`Execution Gate` 應標記為 `blocked`
+     - 前置條件不成立（`Test Env Status ≠ passed`）時，Step 8 不得執行測試，`Execution Gate` 應標記為 `blocked`
+
+11. 修復導向續跑規則（Auto Repair Loop）：
+     - 預設啟用 `Auto Repair Enabled = true`，最大嘗試次數 `Auto Repair Max Attempts = 2`（可由專案情境降低，但不得提高到無上限）
+     - 僅允許自動處理可內部修復失敗：`assertion_failure`、`coverage_zero`、`coverage_gap`
+     - 觸發時機：Step 8 產生 `FAILED` 且尚有剩餘嘗試次數
+     - 續跑路徑：
+       - 案例/覆蓋缺口 -> 回退 Step 6
+       - 腳本斷言/映射問題 -> 回退 Step 7
+       - 回退後必須清場 `Planning Gate Status`、`Script Generation Gate`、`Execution Gate`、`Verification DoD Status` 為 `not_checked`
+     - 若屬外部阻塞（環境、依賴、權限、網路）或已達最大嘗試次數，停止自動續跑並保留最終狀態（`BLOCKED` 或 `FAILED`）
 
 ## 必要報告原則
 - 必須可追溯輸入來源
@@ -108,6 +125,7 @@
 ## 禁止反模式
 - 因為想完成流程而把 `BLOCKED` 改寫成 `FAILED`
 - 前置條件不成立時，不得將 `Execution Gate` 標記為 `failed`；應標記為 `blocked` 並記錄缺失的前置條件
+- 不得以 `fs.readFileSync + eval`、函式片段 `eval` 或字串拼接執行被測程式來宣告單元測試覆蓋成立
 - 沒有明確依據就判定框架、策略或覆蓋率足夠
 - 缺 `RunReport` 或缺主要產物仍宣告完成
 - 沒有保留原始執行證據卻輸出最終結論
